@@ -10,20 +10,20 @@ The United States faces a severe affordable housing crisis, with a [national sho
 
 We’ve identified four challenges that stand to benefit from your data, software, and storytelling skills:
 
-### 1. Understanding Housing Inventory
+### [1. Understanding Housing Inventory](https://github.com/datakind/datakit-housing-event/discussions/1)
 Housing actors need a better understanding of the housing need and availability in communities by income and household in order to take action to increase housing availability. 
 
-### 2. Anticipating Household Displacement in Communities
+### [2. Anticipating Household Displacement in Communities](https://github.com/datakind/datakit-housing-event/discussions/2)
 Housing displacement occurs when households are forced to leave their neighborhoods due to direct and indirect needs. Housing actors must be able to better anticipate the risk of displacement so as to support policies and programs to keep households in their homes.
 
-### 3. Planning for New Housing Development
+### [3. Planning for New Housing Development](https://github.com/datakind/datakit-housing-event/discussions/3)
 New housing development is supported by a number of federal programs. Creating a better understanding of community eligibility and needs will help housing actors and communities better prepare for new development.
 
-### 4. Developing Post-Disaster Housing Response
+### [4. Developing Post-Disaster Housing Response](https://github.com/datakind/datakit-housing-event/discussions/5)
 Natural disasters increasingly impact housing inventory and opportunities in the United States. Housing actors often lack the data tools necessary to engage quickly when disaster strikes. Better data and tools will help communities prepare for and respond to disasters.
 
 > [!TIP]
-> Head to the [Discussions](https://github.com/datakind/datakit-housing-event/discussions/categories/challenges) to dive into a challenge. Each comes with some initial questions and guidance for how to get started.
+> Head to the [Challenges](https://github.com/datakind/datakit-housing-event/discussions/categories/challenges) to dive in. Each comes with some initial questions and guidance for how to get started.
 
 ## How to contribute
 Join us to deliver insights, understanding, and solutions to address the housing crisis in the United States. As a volunteer, you can contribute to challenges in technical or nontechnical ways, as often as you’d like–there’s something for everyone. Here are some avenues to consider:
@@ -38,6 +38,6 @@ Draw connections between datasets to help create a community-level understanding
 Turn research and analysis into action by creating mock-ups, user flows, written documents, or experimental applications to help folks understand the potential of a really good solution. 
 
 ## Accessing the data
-DataKind has compiled initial socio-economic datasets for two states: Florida and California. This data covers 350+ variables at the county and Census tract levels. We’ve stored this data in GitHub for you to work with. These datasets are sourced from DataKind’s own [Economic Opportunity DataScape](https://eodatascape.datakind.org/) product which you can further explore and use for this DataKit as needed.
+DataKind has compiled initial socio-economic datasets for two states: Florida and California. This data covers 350+ variables at the county and Census tract levels. We’ve [stored this data here](https://github.com/datakind/datakit-housing-event/tree/523ba85ade447bd7087bae0a9d41a23443bf25a6/housing-data) for you to work with. These datasets are sourced from DataKind’s own [Economic Opportunity Datascape](https://eodatascape.datakind.org/) product which you can further explore and use for this DataKit as needed.
 
-Challenges can be found in the [Discussions](https://github.com/datakind/datakit-housing-event/discussions) area of the repository....
+Looking for more data? We’ve also started a resource here with additional datasets to use. Please share here if you extract any of this data so that others can use it, and please add to this list if you find other sources!
