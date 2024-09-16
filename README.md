@@ -14,13 +14,13 @@ We’ve identified four huge challenges that stand to benefit from your data, so
 Housing actors need a better understanding of the housing need and availability in communities by income and household in order to take action to increase housing availability. 
 
 ### Anticipating Household Displacement in Communities
-Housing displacement occurs when households are forced to leave their neighborhoods of choice due to direct and indirect needs and housing actors need to be able to better anticipate the risk of displacement so as to support policies and programs to keep households in their homes.
+Housing displacement occurs when households are forced to leave their neighborhoods due to direct and indirect needs. Housing actors must be able to better anticipate the risk of displacement so as to support policies and programs to keep households in their homes.
 
 ### Planning for New Housing Development
-New housing development is supported by a number of federal programs and creating a better understanding of community eligibility and additional community needs will help housing actors and communities better prepare for new development. 
+New housing development is supported by a number of federal programs. Creating a better understanding of community eligibility and needs will help housing actors and communities better prepare for new development.
 
 ### Developing Post-Disaster Housing Response
-Natural disasters are increasingly impacting housing inventory and opportunities in the United States, and housing actors who look to respond post-disaster often lack the data tools to engage quickly \- or even proactively. Better data and tools will help communities prepare for and respond to disasters.
+Natural disasters increasingly impact housing inventory and opportunities in the United States. Housing actors often lack the data tools necessary to engage quickly when disaster strikes. Better data and tools will help communities prepare for and respond to disasters.
 
 ## How to contribute
 Join us to deliver insights, understanding, and solutions to address the housing crisis in the United States. As a volunteer, you can contribute to challenges in technical or nontechnical ways, as often as you’d like–there’s something for everyone. Here are some avenues to consider:
