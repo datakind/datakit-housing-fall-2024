@@ -8,19 +8,22 @@ A DataKit™ is a work-ready set of data, software, and innovation questions, cu
 ## Problem to tackle
 The United States faces a severe affordable housing crisis, with a [national shortage of over 7 million affordable homes](https://nlihc.org/explore-issues/why-we-care/problem) for more than 10.8 million extremely low-income families. There is no state or county in which a renter earning minimum wage can afford a two-bedroom apartment–even if working full time. As a result, 70% of these low-income families are severely cost-burdened, spending over half their income on rent, far above the recommended one-third threshold. [Homeless camps](https://www.nytimes.com/2023/02/03/business/economy/us-homeless-population-count.html) have expanded, and ["super commuters"](https://www.nytimes.com/2024/03/27/briefing/affordable-housing-crisis.html?unlocked_article_code=1.I04.L81I.jbtJBTVGU-9n&smid=url-share)–those who drive for 90 minutes or longer to work–have migrated well beyond the expensive coasts to smaller cities like Spokane, Wash., and fast-growing metropolitan areas like Dallas and Phoenix.
 
-We’ve identified four huge challenges that stand to benefit from your data, software, and storytelling skills:
+We’ve identified four challenges that stand to benefit from your data, software, and storytelling skills:
 
-### Understanding Housing Inventory
+### 1. Understanding Housing Inventory
 Housing actors need a better understanding of the housing need and availability in communities by income and household in order to take action to increase housing availability. 
 
-### Anticipating Household Displacement in Communities
+### 2. Anticipating Household Displacement in Communities
 Housing displacement occurs when households are forced to leave their neighborhoods due to direct and indirect needs. Housing actors must be able to better anticipate the risk of displacement so as to support policies and programs to keep households in their homes.
 
-### Planning for New Housing Development
+### 3. Planning for New Housing Development
 New housing development is supported by a number of federal programs. Creating a better understanding of community eligibility and needs will help housing actors and communities better prepare for new development.
 
-### Developing Post-Disaster Housing Response
+### 4. Developing Post-Disaster Housing Response
 Natural disasters increasingly impact housing inventory and opportunities in the United States. Housing actors often lack the data tools necessary to engage quickly when disaster strikes. Better data and tools will help communities prepare for and respond to disasters.
+
+> [!TIP]
+> Head to the [Discussions](https://github.com/datakind/datakit-housing-event/discussions/categories/challenges) to dive into a challenge. Each comes with some initial questions and guidance for how to get started.
 
 ## How to contribute
 Join us to deliver insights, understanding, and solutions to address the housing crisis in the United States. As a volunteer, you can contribute to challenges in technical or nontechnical ways, as often as you’d like–there’s something for everyone. Here are some avenues to consider:
