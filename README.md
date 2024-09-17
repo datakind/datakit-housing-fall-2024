@@ -38,6 +38,6 @@ Draw connections between datasets to help create a community-level understanding
 Turn research and analysis into action by creating mock-ups, user flows, written documents, or experimental applications to help folks understand the potential of a really good solution. 
 
 ## Accessing the data
-DataKind has compiled initial socio-economic datasets for two states: Florida and California. This data covers 350+ variables at the county and Census tract levels. We’ve [stored this data here](https://github.com/datakind/datakit-housing-event/tree/523ba85ade447bd7087bae0a9d41a23443bf25a6/housing-data) for you to work with. These datasets are sourced from DataKind’s own [Economic Opportunity Datascape](https://eodatascape.datakind.org/) product which you can further explore and use for this DataKit as needed.
+DataKind has compiled initial socio-economic datasets for two states: Florida and California. This data covers 350+ variables at the county and Census tract levels. These datasets are sourced from DataKind’s own [Economic Opportunity Datascape](https://eodatascape.datakind.org/) product which you can further explore and use for this DataKit as needed.
 
-Looking for more data? We’ve also started a resource here with additional datasets to use. Please share here if you extract any of this data so that others can use it, and please add to this list if you find other sources!
+DataKit data can be found in this repository's [Releases](https://github.com/datakind/datakit-housing-fall-2024/releases/latest).
