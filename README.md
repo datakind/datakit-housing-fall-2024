@@ -23,7 +23,7 @@ New housing development is supported by a number of federal programs. Creating a
 Natural disasters increasingly impact housing inventory and opportunities in the United States. Housing actors often lack the data tools necessary to engage quickly when disaster strikes. Better data and tools will help communities prepare for and respond to disasters.
 
 > [!TIP]
-> Head to the [Challenges](https://github.com/datakind/datakit-housing-event/discussions/categories/challenges) to dive in. Each comes with some initial questions and guidance for how to get started.
+> Ready to go? Head to the [Challenges](https://github.com/datakind/datakit-housing-event/discussions/categories/challenges) to dive in. Each comes with some initial questions and guidance for how to get started.
 
 ## How to contribute
 Join us to deliver insights, understanding, and solutions to address the housing crisis in the United States. As a volunteer, you can contribute to challenges in technical or nontechnical ways, as often as you’d like–there’s something for everyone. Here are some avenues to consider:
