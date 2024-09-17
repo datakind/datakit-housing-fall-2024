@@ -41,3 +41,10 @@ Turn research and analysis into action by creating mock-ups, user flows, written
 DataKind has compiled initial socio-economic datasets for two states: Florida and California. This data covers 350+ variables at the county and Census tract levels. These datasets are sourced from DataKind’s own [Economic Opportunity Datascape](https://eodatascape.datakind.org/) product which you can further explore and use for this DataKit as needed.
 
 DataKit data can be found in this repository's [Releases](https://github.com/datakind/datakit-housing-fall-2024/releases/latest).
+
+## Submitting your work
+Every bit of information you contribute is a chance for DataKind and our community partners to chip away at the housing crisis. We want to see it all–not just right answers, but wrong answers and works in progress.
+
+We ask that you share your work regularly on [Slack](https://join.slack.com/t/datakindsdata-kns4887/shared_invite/zt-2qjhprg4n-XPW3UpTt1Z3kZIssuCbKUQ) or in the GitHub Discussions. When you share, please define the dataset(s) you used, how you did the work , and what you think the key takeaways are from the work. 
+
+Please add your work to this repository and engage with the [discussions](https://github.com/datakind/datakit-housing-fall-2024/discussions/categories/challenges). 
