@@ -1,5 +1,5 @@
 #########################
-## Author: Chloe Marshinski
+## Author: Chloe Confino
 ## Date: 9/22/2024
 ## Description: Challenge #2 exploration - Osceola County
 #########################
