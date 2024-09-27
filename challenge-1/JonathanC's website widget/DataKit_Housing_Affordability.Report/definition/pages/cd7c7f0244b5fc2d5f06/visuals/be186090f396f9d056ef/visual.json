@@ -1,0 +1,90 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "be186090f396f9d056ef",
+  "position": {
+    "x": 756.15384615384608,
+    "y": 344.61538461538458,
+    "z": 1000,
+    "height": 184.61538461538461,
+    "width": 337.69230769230768,
+    "tabOrder": 5000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Renter households, cost burden by income"
+                    }
+                  },
+                  "Property": "Household Income"
+                }
+              },
+              "queryRef": "Renter households, cost burden by income.Household Income",
+              "nativeQueryRef": "Household Income"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Renter households, cost burden by income"
+                        }
+                      },
+                      "Property": "Percent Above 30%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Renter households, cost burden by income.Percent Above 30%)",
+              "nativeQueryRef": "Percent Above 30%",
+              "displayName": "Percent Above 30%"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Renter households, cost burden by income"
+                  }
+                },
+                "Property": "Household Income"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

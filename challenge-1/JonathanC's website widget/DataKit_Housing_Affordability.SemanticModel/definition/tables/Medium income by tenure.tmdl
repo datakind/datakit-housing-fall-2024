@@ -1,0 +1,87 @@
+table 'Medium income by tenure'
+	lineageTag: 021fa4d1-7450-4951-a5f9-b6b46ca93644
+
+	column 'Geography Key'
+		dataType: string
+		lineageTag: 969eea5e-56ef-4e14-b3d8-e3a85ddc3632
+		summarizeBy: none
+		sourceColumn: Geography Key
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Owner Median Income ($)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 793d4039-5b73-48e6-8a3d-ea0875e5ab87
+		summarizeBy: sum
+		sourceColumn: Owner Median Income ($)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Margin of Error (+/-)'
+		dataType: int64
+		formatString: 0
+		lineageTag: 14d0b954-146a-4c62-9169-08d94e3826cd
+		summarizeBy: sum
+		sourceColumn: Margin of Error (+/-)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Renter Median Income ($)'
+		dataType: int64
+		formatString: 0
+		lineageTag: fa7a1b7e-8306-4065-a229-e3de1f516253
+		summarizeBy: sum
+		sourceColumn: Renter Median Income ($)
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Margin of Error (+/-)_1'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f58344d-7b2d-4c2f-a0ca-1ede71d963d9
+		summarizeBy: sum
+		sourceColumn: Margin of Error (+/-)_1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'All Households'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4ef0f8b7-82d0-4967-8bd5-964de9b67e1f
+		summarizeBy: sum
+		sourceColumn: All Households
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Margin of Error (+/-)_2'
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d507815-29a9-4384-9146-b350ee9e67c8
+		summarizeBy: sum
+		sourceColumn: Margin of Error (+/-)_2
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Medium income by tenure' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Jonathan\Documents\dataKind\DataKit Housing\affordability-2024_09_24-12_09.xlsx"), null, true),
+				    #"Sheet 5_Sheet" = Source{[Item="Sheet 5",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Sheet 5_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Median Income ($) by Tenure, 2018-2022 5-Year Estimates", type text}, {"Column2", type any}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}, {"Column6", type any}, {"Column7", type any}}),
+				    #"Removed Top Rows" = Table.Skip(#"Changed Type",1),
+				    #"Promoted Headers1" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers1",{{"Geography", type text}, {"Owner Median Income ($)", Int64.Type}, {"Margin of Error (+/-)", Int64.Type}, {"Renter Median Income ($)", Int64.Type}, {"Margin of Error (+/-)_1", Int64.Type}, {"All Households", Int64.Type}, {"Margin of Error (+/-)_2", Int64.Type}}),
+				    #"Added Custom" = Table.AddColumn(#"Changed Type1", "Custom", each Text.BeforeDelimiter([Geography], " ", {0, RelativePosition.FromEnd})),
+				    #"Renamed Columns" = Table.RenameColumns(#"Added Custom",{{"Custom", "Geography Key"}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Renamed Columns",{"Geography Key", "Geography", "Owner Median Income ($)", "Margin of Error (+/-)", "Renter Median Income ($)", "Margin of Error (+/-)_1", "All Households", "Margin of Error (+/-)_2"}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Reordered Columns",{"Geography"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
