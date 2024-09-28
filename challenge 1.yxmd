@@ -1,0 +1,1133 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.1" RunE2="T">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="">C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv</File>
+          <FormatSpecificOptions>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreErrors>False</IgnoreErrors>
+            <AllowShareWrite>False</AllowShareWrite>
+            <ImportLine>1</ImportLine>
+            <FieldLen>254</FieldLen>
+            <SingleThreadRead>False</SingleThreadRead>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <Delimeter>,</Delimeter>
+            <QuoteRecordBreak>False</QuoteRecordBreak>
+            <CodePage>28591</CodePage>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>data_1-FL.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="geoid" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="geoid_year" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="state" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="county" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="state_fips_code" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="county_fips_code" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b19083_001e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b19083_001m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="economic_distress_pop_agg" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="economic_distress_simple_agg" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="investment_areas" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="opzone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_004e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_004m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_005e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_005m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_006e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_006m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_001e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_001m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_003e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_003m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_004e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_004m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_006e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_006m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_007e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_007m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_008e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_008m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_009e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_009m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_010e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_010m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_011e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_011m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_012e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_012m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_013e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_013m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_014e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_014m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_015e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_015m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_016e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_016m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_017e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_017m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_018e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_018m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_019e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_019m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_020e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_020m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_021e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1701_c03_021m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_001e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_001m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_003e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_003m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_004e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_004m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_005e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_005m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_006e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_006m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_007e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_007m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_008e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_008m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_009e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_009m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_010e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_010m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_011e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_011m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_012e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_012m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_013e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_013m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_014e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s1903_c03_014m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2001_c01_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2001_c01_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2001_c03_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2001_c03_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2001_c05_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2001_c05_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_001e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_001m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_003e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_003m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_004e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_004m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_005e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_005m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_006e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_006m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_007e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_007m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_008e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_008m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_009e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_009m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_010e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_010m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_011e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_011m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_012e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_012m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_013e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_013m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_014e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_014m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_015e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_015m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_016e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_016m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_017e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_017m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_018e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_018m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_019e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_019m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_020e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_020m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_021e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_021m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_022e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_022m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_023e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_023m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c03_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_001e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_001m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_002e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_002m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_003e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_003m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_004e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_004m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_005e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_005m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_006e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_006m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_007e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_007m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_008e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_008m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_009e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_009m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_010e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_010m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_011e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_011m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_012e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_012m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_013e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_013m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_014e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_014m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_015e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_015m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_016e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_016m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_017e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_017m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_018e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_018m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_019e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_019m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_020e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_020m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_021e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_021m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_022e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_022m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_023e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2701_c05_023m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_003e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_003m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_007e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="b23025_007m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="cancer" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_cancer" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_cancer" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_dslpm" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_dslpm" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dslpm" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_ldpnt" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_ldpnt" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="pre1960pct" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_ozone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_ozone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="ozone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_pm25" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_pm25" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="pm25" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_pnpl" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_pnpl" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="pnpl" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_prmp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_prmp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="prmp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_ptraf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_ptraf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="ptraf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_ptsdf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_ptsdf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="ptsdf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_pwdis" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_pwdis" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="pwdis" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_resp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_resp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="resp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_rsei_air" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_rsei_air" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="rsei_air" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d2_ust" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="d5_ust" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="ust" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="energy_burden" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="energy_burden_percentile" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="expected_agricultural_loss_rate_natural_hazards_risk_index" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="expected_agricultural_loss_rate_natural_hazards_risk_index_percentile" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="expected_building_loss_rate_natural_hazards_risk_index" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="expected_building_loss_rate_natural_hazards_risk_index_percentile" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="expected_population_loss_rate_natural_hazards_risk_index" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="expected_population_loss_rate_natural_hazards_risk_index_percentile" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="share_of_properties_at_risk_of_fire_in_30_years" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="share_of_properties_at_risk_of_fire_in_30_years_percentile" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="share_of_properties_at_risk_of_flood_in_30_years" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="share_of_properties_at_risk_of_flood_in_30_years_percentile" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_cancer" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_cancer" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_cancer" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_dslpm" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_dslpm" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_dslpm" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_ldpnt" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_ldpnt" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_ldpnt" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_ozone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_ozone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_ozone" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_pm25" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_pm25" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_pm25" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_pnpl" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_pnpl" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_pnpl" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_prmp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_prmp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_prmp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_ptraf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_ptraf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_ptraf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_ptsdf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_ptsdf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_ptsdf" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_pwdis" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_pwdis" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_pwdis" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_resp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_resp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_resp" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_rsei_air" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_rsei_air" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_rsei_air" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d2_ust" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_d5_ust" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="p_ust" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="pre1960" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0035pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0037pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0038pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0039pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0044pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0052pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="dp05_0057pe" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c01_032e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c01_032m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c03_032e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c03_032m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c05_032e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c05_032m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_020e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_020m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_020e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_020m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_020e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_020m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_021e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_021m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_021e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_021m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_021e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_021m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_022e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_022m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_022e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_022m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_022e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_022m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_023e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_023m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_023e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_023m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_023e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_023m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_025e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_025m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_025e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_025m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_025e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_025m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_026e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_026m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_026e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_026m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_026e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_026m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_027e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_027m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_027e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_027m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_027e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_027m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_028e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_028m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_028e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_028m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_028e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_028m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_029e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_029m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_029e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_029m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_029e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_029m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_030e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_030m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_030e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_030m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_030e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_030m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_031e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c02_031m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_031e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c04_031m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_031e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s0101_c06_031m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="loan_amount" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="median_mortgage_amount" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="median_prop_value" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="median_sba504_loan_amount" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="median_sba7a_loan_amount" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="num_mortgage" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="num_mortgage_denials" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="num_mortgage_originated" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="number_of_sba504_loans" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="number_of_sba7a_loans" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="qct" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2503_c01_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2503_c01_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2503_c03_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2503_c03_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2503_c05_024e" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+            <Field name="s2503_c05_024m" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\data_1-FL.csv" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="150" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\sanay\AppData\Local\Temp\Alteryx\Engine_22708_7691210af7f044d488383cee34fb7436_\Engine_22708_786853820eb8594a8caf7f6f7e6f0432~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="246" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="geoid" selected="True" />
+            <SelectField field="county" selected="False" type="Int64" size="8" />
+            <SelectField field="state_fips_code" selected="True" />
+            <SelectField field="county_fips_code" selected="True" />
+            <SelectField field="s1701_c03_001e" selected="True" rename="Percentage Below Poverty Level" type="Float" size="4" description="False	s1701_c03_001e	V_String	254	ACS - Percentage Below Poverty Level (Poverty Status in the Past 12 Months) - Estimate" />
+            <SelectField field="s1903_c03_001e" selected="True" rename="AMI" type="Float" size="4" description="ACS - Median Household Income last 12 months" />
+            <SelectField field="pre1960" selected="True" rename="Housing units" type="Float" size="4" description="EJScreen - Housing units built before 1960 - Housing units built before 1960" />
+            <SelectField field="dp05_0035pe" selected="True" rename="two or more races" type="Float" size="4" />
+            <SelectField field="dp05_0037pe" selected="True" rename="white only" type="Float" size="4" />
+            <SelectField field="dp05_0038pe" selected="True" rename="black or african american only" type="Float" size="4" />
+            <SelectField field="dp05_0039pe" selected="True" rename="american indian and alaska native only" type="Float" size="4" />
+            <SelectField field="dp05_0044pe" selected="True" rename="asian only" type="Float" size="4" />
+            <SelectField field="dp05_0052pe" selected="True" rename="native hawaiian and other pacific islander only" type="Float" size="4" />
+            <SelectField field="dp05_0057pe" selected="True" rename="some other race only" type="Float" size="4" />
+            <SelectField field="s2503_c03_024e" selected="True" rename="Median Monthly Housing Cost- Owner" type="Float" size="4" description="ACS - Median Monthly Housing Cost (Occupied Housing Units) - By ownership status - Owner-occupied Housing Units - Estimate" />
+            <SelectField field="s2503_c05_024e" selected="True" rename="Median Monthly Housing Cost  - Renter" type="Float" size="4" description="ACS - Median Monthly Housing Cost (Occupied Housing Units) - By ownership status - Renter-occupied Housing Units - Estimate" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="150" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>county</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2024-09-27 00:35:13</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <StartDate>2024-09-27 00:35:13</StartDate>
+              <EndDate>2024-09-27 00:35:13</EndDate>
+              <Operand>095</Operand>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[county] = "095"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="342" y="126" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF ([AMI] &gt; 0 AND [AMI] &lt; 27750) THEN &quot;Extremly Low&quot;&#xA;ELSEIF ([AMI] &gt;27750 AND [AMI] &lt;= 41450) THEN &quot;Very Low&quot; &#xA;ELSEIF ([AMI] &gt; 41450 AND [AMI] &lt;= 66300) THEN &quot;Low&quot;&#xA;ELSEIF ([AMI] &gt; 66300 AND [AMI] &lt;= 96120) THEN &quot;Moderate&quot;&#xA;ELSEIF ([AMI] &gt; 96120) THEN &quot;Upper&quot;&#xA;else &quot;None&quot; Endif" field="Income Category" size="1073741823" type="V_WString" enabled="true" />
+            <FormulaField expression="IIF([Median Monthly Housing Cost- Owner]&lt;0, 0, [Median Monthly Housing Cost- Owner])" field="Median Monthly Housing Cost- Owner" size="4" type="Float" enabled="true" />
+            <FormulaField expression="IIF([Median Monthly Housing Cost  - Renter]&lt;0,0,[Median Monthly Housing Cost  - Renter])" field="Median Monthly Housing Cost  - Renter" size="4" type="Float" enabled="true" />
+            <FormulaField expression="([Median Monthly Housing Cost  - Renter]/[AMI])*100" field="% income paid as rent" size="11.2" type="FixedDecimal" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Income Category = IF ([AMI] &gt; 0 AND [AMI] &lt; 27750) THEN "Extremly Low"
+ELSEIF ([...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+        <Position x="546" y="18" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <File MaxRecords="" FileFormat="0">C:\Users\sanay\Downloads\housing-data\housing-data\FL\output_file_orange_county.csv</File>
+          <Passwords />
+          <Disable>False</Disable>
+          <FormatSpecificOptions>
+            <LineEndStyle>CRLF</LineEndStyle>
+            <Delimeter>,</Delimeter>
+            <ForceQuotes>False</ForceQuotes>
+            <HeaderRow>True</HeaderRow>
+            <CodePage>28591</CodePage>
+            <WriteBOM>True</WriteBOM>
+          </FormatSpecificOptions>
+          <MultiFile value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>output_file_orange_county.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="498" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Income Category" action="GroupBy" rename="Income Category" />
+            <SummarizeField field="geoid" action="Count" rename="Count" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="618" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\sanay\AppData\Local\Temp\Alteryx\Engine_22708_7691210af7f044d488383cee34fb7436_\Engine_22708_4817649cc270cf4f8c3fa8741d3e2807~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Transpose.Transpose">
+        <Position x="486" y="114" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ErrorWarn>Warn</ErrorWarn>
+          <KeyFields>
+            <Field field="geoid" />
+            <Field field="Income Category" />
+          </KeyFields>
+          <DataFields>
+            <Field field="geoid" selected="False" />
+            <Field field="state_fips_code" selected="False" />
+            <Field field="county_fips_code" selected="False" />
+            <Field field="Percentage Below Poverty Level" selected="False" />
+            <Field field="AMI" selected="False" />
+            <Field field="Housing units" selected="False" />
+            <Field field="two or more races" selected="True" />
+            <Field field="white only" selected="True" />
+            <Field field="black or african american only" selected="True" />
+            <Field field="american indian and alaska native only" selected="True" />
+            <Field field="asian only" selected="True" />
+            <Field field="native hawaiian and other pacific islander only" selected="True" />
+            <Field field="some other race only" selected="True" />
+            <Field field="Median Monthly Housing Cost- Owner" selected="False" />
+            <Field field="Median Monthly Housing Cost  - Renter" selected="False" />
+            <Field field="Income Category" selected="False" />
+            <Field field="% income paid as rent" selected="False" />
+            <Field field="*Unknown" selected="True" />
+          </DataFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTranspose" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.CrossTab.CrossTab">
+        <Position x="618" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields>
+            <Field field="geoid" />
+            <Field field="Income Category" />
+          </GroupFields>
+          <HeaderField field="Name" />
+          <DataField field="Value" />
+          <Methods>
+            <Method method="Sum" />
+          </Methods>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="geoid" size="254" source="CrossTab:Group:Sum:" type="V_String" />
+            <Field name="Income Category" size="1073741823" source="CrossTab:Group:Sum:" type="V_WString" />
+            <Field name="two_or_more_races" source="CrossTab:Header:Name:two or more races:Sum:" type="Double" />
+            <Field name="white_only" source="CrossTab:Header:Name:white only:Sum:" type="Double" />
+            <Field name="black_or_african_american_only" source="CrossTab:Header:Name:black or african american only:Sum:" type="Double" />
+            <Field name="american_indian_and_alaska_native_only" source="CrossTab:Header:Name:american indian and alaska native only:Sum:" type="Double" />
+            <Field name="asian_only" source="CrossTab:Header:Name:asian only:Sum:" type="Double" />
+            <Field name="native_hawaiian_and_other_pacific_islander_only" source="CrossTab:Header:Name:native hawaiian and other pacific islander only:Sum:" type="Double" />
+            <Field name="some_other_race_only" source="CrossTab:Header:Name:some other race only:Sum:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxCrossTab" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="714" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\sanay\AppData\Local\Temp\Alteryx\Engine_22708_7691210af7f044d488383cee34fb7436_\Engine_22708_cb7e1f69914ec24494e848fbc9d78304~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="498" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Income Category" action="GroupBy" rename="Income Category" />
+            <SummarizeField field="Median Monthly Housing Cost  - Renter" action="Avg" rename="Avg_Median Monthly Housing Cost  - Renter" />
+            <SummarizeField field="Median Monthly Housing Cost- Owner" action="Avg" rename="Avg_Median Monthly Housing Cost- Owner" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="594" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\sanay\AppData\Local\Temp\Alteryx\Engine_22708_7691210af7f044d488383cee34fb7436_\Engine_22708_0693ff017905034b9c85614e51017d9d~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="270" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <File RecordLimit="" SearchSubDirs="False" FileFormat="0" OutputFileName="">C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv</File>
+          <FormatSpecificOptions>
+            <HeaderRow>True</HeaderRow>
+            <IgnoreErrors>False</IgnoreErrors>
+            <AllowShareWrite>False</AllowShareWrite>
+            <ImportLine>1</ImportLine>
+            <FieldLen>254</FieldLen>
+            <SingleThreadRead>False</SingleThreadRead>
+            <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+            <Delimeter>,</Delimeter>
+            <QuoteRecordBreak>False</QuoteRecordBreak>
+            <CodePage>28591</CodePage>
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>housing data.csv</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Tract" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="sub tract" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="Total housing units" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="Total vacant houses" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    For rent" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    Rented, not occupied" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    For sale only" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    Sold, not occupied" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    For seasonal, recreational, or occasional use" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    For migrant workers" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+            <Field name="    Other vacant" size="254" source="File: C:\Users\sanay\Downloads\housing-data\housing-data\FL\housing data.csv" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="414" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot;120950&quot;+[Tract]+[sub tract]" field="Geoid" size="1073741823" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Geoid = "120950"+[Tract]+[sub tract]
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="582" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="geoid" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Geoid" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_state_fips_code" selected="False" input="Left_" />
+                <SelectField field="Left_county_fips_code" selected="False" input="Left_" />
+                <SelectField field="Right_Geoid" selected="False" rename="Right_Geoid" input="Right_" />
+                <SelectField field="Right_Tract" selected="False" input="Right_" />
+                <SelectField field="Right_sub tract" selected="False" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="702" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\sanay\AppData\Local\Temp\Alteryx\Engine_22708_7691210af7f044d488383cee34fb7436_\Engine_22708_c60dbc082f54854da91600cb8dc1a163~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="678" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Income Category" action="GroupBy" rename="Income Category" />
+            <SummarizeField field="Total vacant houses" action="Sum" rename="Sum_Total vacant houses" />
+            <SummarizeField field="    For rent" action="Sum" rename="Sum_    For rent" />
+            <SummarizeField field="    Rented, not occupied" action="Sum" rename="Sum_    Rented, not occupied" />
+            <SummarizeField field="    For sale only" action="Sum" rename="Sum_    For sale only" />
+            <SummarizeField field="    Sold, not occupied" action="Sum" rename="Sum_    Sold, not occupied" />
+            <SummarizeField field="    For migrant workers" action="Sum" rename="Sum_    For migrant workers" />
+            <SummarizeField field="Median Monthly Housing Cost  - Renter" action="Avg" rename="Avg_Median Monthly Housing Cost  - Renter" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="498" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Tract" selected="False" />
+            <SelectField field="sub tract" selected="False" />
+            <SelectField field="Geoid" selected="True" />
+            <SelectField field="Total housing units" selected="True" type="Int64" size="8" />
+            <SelectField field="Total vacant houses" selected="True" type="Int64" size="8" />
+            <SelectField field="    For rent" selected="True" type="Int64" size="8" />
+            <SelectField field="    Rented, not occupied" selected="True" type="Int64" size="8" />
+            <SelectField field="    For sale only" selected="True" type="Int64" size="8" />
+            <SelectField field="    Sold, not occupied" selected="True" type="Int64" size="8" />
+            <SelectField field="    For seasonal, recreational, or occasional use" selected="True" type="Int64" size="8" />
+            <SelectField field="    For migrant workers" selected="True" type="Int64" size="8" />
+            <SelectField field="    Other vacant" selected="True" type="Int64" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="774" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="([Sum_    For rent]/[Sum_Total vacant houses])*100" field="Sum_    For rent" size="8" type="Int64" enabled="true" />
+            <FormulaField expression="([Sum_    Rented, not occupied]/[Sum_Total vacant houses])*100" field="Sum_    Rented, not occupied" size="8" type="Int64" enabled="true" />
+            <FormulaField expression="([Sum_    For sale only]/[Sum_Total vacant houses])*100" field="Sum_    For sale only" size="8" type="Int64" enabled="true" />
+            <FormulaField expression="([Sum_    Sold, not occupied]/[Sum_Total vacant houses])*100" field="Sum_    Sold, not occupied" size="8" type="Int64" enabled="true" />
+            <FormulaField expression="([Sum_    For migrant workers]/[Sum_Total vacant houses])*100" field="Sum_    For migrant workers" size="8" type="Int64" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Sum_    For rent = ([Sum_    For rent]/[Sum_Total vacant houses])*100
+Sum_    Re...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="906" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\sanay\AppData\Local\Temp\Alteryx\Engine_22708_7691210af7f044d488383cee34fb7436_\Engine_22708_15bb2ce322af654483978717585daa2d~.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Profile</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="51" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="51" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="54" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Join" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Join" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="53" Connection="Output" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Output" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>challenge 1</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="43bf9a88-a40d-43aa-99ca-7cdba359b7ba" />
+      <Telemetry>
+        <PreviousWorkflowId value="bf26a38c-b1bb-4762-8de1-da7087d74c55" />
+        <OriginWorkflowId value="bf26a38c-b1bb-4762-8de1-da7087d74c55" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
