@@ -12,9 +12,6 @@ The main limitation of this project is that it only covers three features to ide
 Future Plans:
 The future plan involves gathering and cleaning historical data. Some American Community Survey (ACS) variables have been collected, further cleaning is needed. Additionally, acquire historical data related to natural disasters for predictive modeling. Enhance the visualizations to provide a clearer understanding of the data and help stakeholders make informed decisions. Include additional variables related to housing, socioeconomic status, and community infrastructure to provide a more holistic view of vulnerability.
 
-Interactive map: Florida high risk areas map file:///C:/Users/snura/Documents/DataKind%20Volunteer/FL/Florida-challenge%204/florida_high_risk_areas_map.html
-
-Code (Html version): file:///C:/Users/snura/Downloads/FLdisaster_housing_response%20-%20Jupyter%20Notebook.html
 
 
 
