@@ -1,0 +1,118 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "a421e6787cfe2d3c58e7",
+  "position": {
+    "x": 759.28571428571433,
+    "y": 140.71428571428572,
+    "z": 2000,
+    "height": 205.71428571428572,
+    "width": 335.71428571428572,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All households, cost burden by income"
+                    }
+                  },
+                  "Property": "Household Income"
+                }
+              },
+              "queryRef": "All households, cost burden by income.Household Income",
+              "nativeQueryRef": "Household Income"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All households, cost burden by income"
+                        }
+                      },
+                      "Property": "Percent above 30%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(All households, cost burden by income.Percent above 30%)",
+              "nativeQueryRef": "Percent above 30%",
+              "displayName": "Percent above 30%"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Aggregation": {
+                "Expression": {
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "All households, cost burden by income"
+                      }
+                    },
+                    "Property": "Percent above 30%"
+                  }
+                },
+                "Function": 0
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "styleValues": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "All households, cost burden by income.Household Income"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

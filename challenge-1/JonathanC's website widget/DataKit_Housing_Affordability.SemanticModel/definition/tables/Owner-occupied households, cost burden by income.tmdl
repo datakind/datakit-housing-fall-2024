@@ -1,0 +1,101 @@
+table 'Owner-occupied households, cost burden by income'
+	lineageTag: 82d77678-5c4d-4bda-91ca-1370e81d128d
+
+	measure 'Upper Limit (Owner)' =
+			
+			SWITCH(
+			    TRUE(),
+			    MAX('Owner-occupied households, cost burden by income'[Household Income]) =  "30% AMI or less", 0.3 * MAX('Medium income by tenure'[Owner Median Income ($)]),
+			    MAX('Owner-occupied households, cost burden by income'[Household Income]) = "30.01-50% AMI", 0.5 * MAX('Medium income by tenure'[Owner Median Income ($)]),
+			    MAX('Owner-occupied households, cost burden by income'[Household Income]) = "50.01-80% AMI", 0.8 * MAX('Medium income by tenure'[Owner Median Income ($)]),
+			    MAX('Owner-occupied households, cost burden by income'[Household Income]) = "80.01-100% AMI", 1 * MAX('Medium income by tenure'[Owner Median Income ($)]),
+			    MAX('Owner-occupied households, cost burden by income'[Household Income]) = "Greater than 100% AMI", BLANK()
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: e73404c9-606a-4fa3-8dc1-10dcfd7f328b
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Total owners' = SUM('Owner-occupied households, cost burden by income'[30% or less]) + SUM('Owner-occupied households, cost burden by income'[30.1-50%]) + SUM('Owner-occupied households, cost burden by income'[More than 50%])
+		formatString: #,0
+		lineageTag: f4ab78cb-2532-4576-85d9-32d81ca08b82
+
+	column Geography
+		dataType: string
+		lineageTag: 9ccff428-0f35-4ac6-90aa-fab2af97aeb7
+		summarizeBy: none
+		sourceColumn: Geography
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Household Income'
+		dataType: string
+		lineageTag: 248942ff-07b6-4f34-9de8-fc63ac8ce281
+		summarizeBy: none
+		sourceColumn: Household Income
+
+		annotation SummarizationSetBy = Automatic
+
+	column '30% or less'
+		dataType: int64
+		formatString: #,0
+		lineageTag: f86db7f3-b218-48aa-91fe-20bd3d6edf96
+		summarizeBy: sum
+		sourceColumn: 30% or less
+
+		annotation SummarizationSetBy = Automatic
+
+	column '30.1-50%'
+		dataType: int64
+		formatString: #,0
+		lineageTag: c7d293d7-f1a2-4c3e-aaec-deddd8e02ba1
+		summarizeBy: sum
+		sourceColumn: 30.1-50%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'More than 50%'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 318c9242-7ad3-43a0-92aa-065ba73793af
+		summarizeBy: sum
+		sourceColumn: More than 50%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Above 30%' = 'Owner-occupied households, cost burden by income'[30% or less] + 'Owner-occupied households, cost burden by income'[30.1-50%]
+		dataType: int64
+		formatString: #,0
+		lineageTag: c4588039-ec93-4772-82f9-160793ee3f55
+		summarizeBy: sum
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percent Above 30%' = 'Owner-occupied households, cost burden by income'[Above 30%]/'Owner-occupied households, cost burden by income'[Total owners]
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 299dcc9a-6999-42e9-9a0a-d6fe900d5b97
+		summarizeBy: sum
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Owner-occupied households, cost burden by income' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Jonathan\Documents\dataKind\DataKit Housing\affordability-2024_09_24-12_09.xlsx"), null, true),
+				    #"Sheet 3_Sheet" = Source{[Item="Sheet 3",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Sheet 3_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Owner-Occupied Households, Cost Burden by Income, 2022 Estimate (Summary)", type text}, {"Column2", type text}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}}),
+				    #"Removed Top Rows" = Table.Skip(#"Changed Type",1),
+				    #"Promoted Headers1" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers1",{{"Geography", type text}, {"Household Income", type text}, {"30% or less", Int64.Type}, {"30.1-50%", Int64.Type}, {"More than 50%", Int64.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

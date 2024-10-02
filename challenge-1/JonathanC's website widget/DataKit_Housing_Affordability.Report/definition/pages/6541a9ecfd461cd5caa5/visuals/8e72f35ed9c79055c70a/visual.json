@@ -1,0 +1,163 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "8e72f35ed9c79055c70a",
+  "position": {
+    "x": 354.28571428571428,
+    "y": 78.571428571428569,
+    "z": 1000,
+    "height": 318.57142857142861,
+    "width": 571.42857142857144,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All households, cost burden by income"
+                    }
+                  },
+                  "Property": "Household Income"
+                }
+              },
+              "queryRef": "All households, cost burden by income.Household Income",
+              "nativeQueryRef": "Household Income",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All households, cost burden by income"
+                        }
+                      },
+                      "Property": "30% or less"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(All households, cost burden by income.30% or less)",
+              "nativeQueryRef": "30% or less",
+              "displayName": "30% or less"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All households, cost burden by income"
+                        }
+                      },
+                      "Property": "30.1-50%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(All households, cost burden by income.30.1-50%)",
+              "nativeQueryRef": "30.1-50%",
+              "displayName": "30.1-50%"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "All households, cost burden by income"
+                        }
+                      },
+                      "Property": "More than 50%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(All households, cost burden by income.More than 50%)",
+              "nativeQueryRef": "More than 50%",
+              "displayName": "More than 50%"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "All households, cost burden by income"
+                  }
+                },
+                "Property": "Household Income"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "layout": [
+        {
+          "properties": {
+            "seriesOrderSorted": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "valueAxis": [
+        {
+          "properties": {
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Households'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'All households'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

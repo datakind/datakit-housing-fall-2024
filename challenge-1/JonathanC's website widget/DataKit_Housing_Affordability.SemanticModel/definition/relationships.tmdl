@@ -1,0 +1,12 @@
+relationship 12b3c983-0e9c-511f-2f27-7ef392be44b5
+	fromColumn: 'All households, cost burden by income'.Geography
+	toColumn: 'Medium income by tenure'.'Geography Key'
+
+relationship d5d67461-9cff-4a54-c36f-f9492796ed4d
+	fromColumn: 'Renter households, cost burden by income'.Geography
+	toColumn: 'Medium income by tenure'.'Geography Key'
+
+relationship fc419a70-3809-b825-fd7a-6a2ad56be883
+	fromColumn: 'Owner-occupied households, cost burden by income'.Geography
+	toColumn: 'Medium income by tenure'.'Geography Key'
+

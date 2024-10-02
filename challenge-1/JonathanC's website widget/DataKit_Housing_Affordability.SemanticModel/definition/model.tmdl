@@ -1,0 +1,24 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["All households, cost burden by income","Renter households, cost burden by income","Owner-occupied households, cost burden by income","Medium income by tenure"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBIDesktopVersion = 2.136.1202.0 (24.09)
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'All households, cost burden by income'
+ref table DateTableTemplate_659e404c-5aed-43db-bef9-319f98dee895
+ref table 'Renter households, cost burden by income'
+ref table 'Owner-occupied households, cost burden by income'
+ref table 'Medium income by tenure'
+
+ref cultureInfo en-US
+
