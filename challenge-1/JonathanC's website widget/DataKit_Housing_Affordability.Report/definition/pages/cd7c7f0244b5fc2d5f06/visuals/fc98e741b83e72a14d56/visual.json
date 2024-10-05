@@ -1,0 +1,181 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "fc98e741b83e72a14d56",
+  "position": {
+    "x": 18.584392014519057,
+    "y": 326.38838475499091,
+    "z": 5000,
+    "height": 205.58983666061707,
+    "width": 889.72776769509983,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Renter households, cost burden by income"
+                    }
+                  },
+                  "Property": "Household Income"
+                }
+              },
+              "queryRef": "Renter households, cost burden by income.Household Income",
+              "nativeQueryRef": "Household Income"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Renter households, cost burden by income"
+                    }
+                  },
+                  "Property": "Upper Limit (Renter)"
+                }
+              },
+              "queryRef": "Renter households, cost burden by income.Upper Limit (Renter)",
+              "nativeQueryRef": "Upper Limit (Renter)"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Renter households, cost burden by income"
+                        }
+                      },
+                      "Property": "30% or less"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Renter households, cost burden by income.30% or less)",
+              "nativeQueryRef": "Sum of 30% or less"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Renter households, cost burden by income"
+                        }
+                      },
+                      "Property": "30.1-50%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Renter households, cost burden by income.30.1-50%)",
+              "nativeQueryRef": "Sum of 30.1-50%"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Renter households, cost burden by income"
+                        }
+                      },
+                      "Property": "More than 50%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Renter households, cost burden by income.More than 50%)",
+              "nativeQueryRef": "Sum of More than 50%"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Renter households, cost burden by income"
+                    }
+                  },
+                  "Property": "Total renters"
+                }
+              },
+              "queryRef": "Renter households, cost burden by income.Total renters",
+              "nativeQueryRef": "Total renters"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Renter households, cost burden by income"
+                        }
+                      },
+                      "Property": "Above 30%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Renter households, cost burden by income.Above 30%)",
+              "nativeQueryRef": "Sum of Above 30%"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Renter households, cost burden by income"
+                  }
+                },
+                "Property": "Household Income"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Renters'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

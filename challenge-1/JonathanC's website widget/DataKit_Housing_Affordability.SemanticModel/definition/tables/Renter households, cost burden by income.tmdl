@@ -1,0 +1,99 @@
+table 'Renter households, cost burden by income'
+	lineageTag: 44ec7227-bf34-498f-9e8b-c46a6933bdfb
+
+	measure 'Upper Limit (Renter)' =
+			
+			SWITCH(
+			    TRUE(),
+			    MAX('Renter households, cost burden by income'[Household Income]) =  "30% AMI or less", 0.3 * MAX('Medium income by tenure'[Renter Median Income ($)]),
+			    MAX('Renter households, cost burden by income'[Household Income]) = "30.01-50% AMI", 0.5 * MAX('Medium income by tenure'[Renter Median Income ($)]),
+			    MAX('Renter households, cost burden by income'[Household Income]) = "50.01-80% AMI", 0.8 * MAX('Medium income by tenure'[Renter Median Income ($)]),
+			    MAX('Renter households, cost burden by income'[Household Income]) = "80.01-100% AMI", 1 * MAX('Medium income by tenure'[Renter Median Income ($)]),
+			    MAX('Renter households, cost burden by income'[Household Income]) = "Greater than 100% AMI", BLANK()
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 8acf9246-7d7d-4916-a805-b2b2ea5ed12c
+
+	measure 'Total renters' = SUM('Renter households, cost burden by income'[30% or less]) + SUM('Renter households, cost burden by income'[30.1-50%]) + SUM('Renter households, cost burden by income'[More than 50%])
+		formatString: #,0
+		lineageTag: 80b646ea-90bd-419f-9772-b199eb061b60
+
+	column Geography
+		dataType: string
+		lineageTag: d542a0c0-5a76-4ed6-9fa6-5eefd7171a40
+		summarizeBy: none
+		sourceColumn: Geography
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Household Income'
+		dataType: string
+		lineageTag: ffb5bea2-751e-4f60-ab15-d3719a7bf0f7
+		summarizeBy: none
+		sourceColumn: Household Income
+
+		annotation SummarizationSetBy = Automatic
+
+	column '30% or less'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 1ab97112-d95c-412e-92c2-d886005579f4
+		summarizeBy: sum
+		sourceColumn: 30% or less
+
+		annotation SummarizationSetBy = Automatic
+
+	column '30.1-50%'
+		dataType: int64
+		formatString: #,0
+		lineageTag: a0c213b0-872c-4fc8-bfd2-715bca89ea8a
+		summarizeBy: sum
+		sourceColumn: 30.1-50%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'More than 50%'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 8adbe25d-73af-472f-8158-e88a1846ff89
+		summarizeBy: sum
+		sourceColumn: More than 50%
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Above 30%' = [30.1-50%] + [More than 50%]
+		dataType: int64
+		formatString: #,0
+		lineageTag: e8ce4b6e-dbbb-4f9a-8383-c67d196ae5f1
+		summarizeBy: sum
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Percent Above 30%' = 'Renter households, cost burden by income'[Above 30%]/'Renter households, cost burden by income'[Total renters]
+		dataType: double
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: f0715029-01f9-48ab-960b-3fa001e705cb
+		summarizeBy: sum
+		isDataTypeInferred
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Renter households, cost burden by income' = m
+		mode: import
+		source =
+				let
+				    Source = Excel.Workbook(File.Contents("C:\Users\Jonathan\Documents\dataKind\DataKit Housing\affordability-2024_09_24-12_09.xlsx"), null, true),
+				    #"Sheet 2_Sheet" = Source{[Item="Sheet 2",Kind="Sheet"]}[Data],
+				    #"Promoted Headers" = Table.PromoteHeaders(#"Sheet 2_Sheet", [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Renter Households, Cost Burden by Income, 2022 Estimate (Summary)", type text}, {"Column2", type text}, {"Column3", type any}, {"Column4", type any}, {"Column5", type any}}),
+				    #"Removed Top Rows" = Table.Skip(#"Changed Type",1),
+				    #"Promoted Headers1" = Table.PromoteHeaders(#"Removed Top Rows", [PromoteAllScalars=true]),
+				    #"Changed Type1" = Table.TransformColumnTypes(#"Promoted Headers1",{{"Geography", type text}, {"Household Income", type text}, {"30% or less", Int64.Type}, {"30.1-50%", Int64.Type}, {"More than 50%", Int64.Type}})
+				in
+				    #"Changed Type1"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

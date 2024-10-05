@@ -1,0 +1,74 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 163.33521126760567,
+            "y": 295.50422535211271
+          },
+          "nodeIndex": "All households, cost burden by income",
+          "nodeLineageTag": "fa02bb75-4abe-4ec2-a2dc-78dd634ced02",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 475.45915492957755,
+            "y": 301.99436619718313
+          },
+          "nodeIndex": "Renter households, cost burden by income",
+          "nodeLineageTag": "44ec7227-bf34-498f-9e8b-c46a6933bdfb",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 820.03380281690147,
+            "y": 300.91267605633806
+          },
+          "nodeIndex": "Owner-occupied households, cost burden by income",
+          "nodeLineageTag": "82d77678-5c4d-4bda-91ca-1370e81d128d",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 528.09014084507021,
+            "y": 0
+          },
+          "nodeIndex": "Medium income by tenure",
+          "nodeLineageTag": "021fa4d1-7450-4951-a5f9-b6b46ca93644",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 92.447916666666657,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

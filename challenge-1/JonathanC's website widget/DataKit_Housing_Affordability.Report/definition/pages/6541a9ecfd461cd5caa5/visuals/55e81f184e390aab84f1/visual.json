@@ -1,0 +1,150 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.2.0/schema.json",
+  "name": "55e81f184e390aab84f1",
+  "position": {
+    "x": 661.42857142857144,
+    "y": 438.57142857142861,
+    "z": 3000,
+    "height": 281.42857142857144,
+    "width": 448.57142857142861,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "barChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Owner-occupied households, cost burden by income"
+                    }
+                  },
+                  "Property": "Household Income"
+                }
+              },
+              "queryRef": "Owner-occupied households, cost burden by income.Household Income",
+              "nativeQueryRef": "Household Income",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Owner-occupied households, cost burden by income"
+                        }
+                      },
+                      "Property": "30% or less"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Owner-occupied households, cost burden by income.30% or less)",
+              "nativeQueryRef": "30% or less",
+              "displayName": "30% or less"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Owner-occupied households, cost burden by income"
+                        }
+                      },
+                      "Property": "30.1-50%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Owner-occupied households, cost burden by income.30.1-50%)",
+              "nativeQueryRef": "30.1-50%",
+              "displayName": "30.1-50%"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Owner-occupied households, cost burden by income"
+                        }
+                      },
+                      "Property": "More than 50%"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Owner-occupied households, cost burden by income.More than 50%)",
+              "nativeQueryRef": "More than 50%",
+              "displayName": "More than 50%"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Owner-occupied households, cost burden by income"
+                  }
+                },
+                "Property": "Household Income"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "valueAxis": [
+        {
+          "properties": {
+            "titleText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Households'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Owners'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
