@@ -1,0 +1,44 @@
+
+=============================================================================================================
+Notes
+=============================================================================================================
+
+Note: For information on data collection, confidentiality protection, nonsampling error, subject definitions, and guidance on using the data, visit the <a href=\"https://www.census.gov/programs-surveys/decennial-census/technical-documentation/complete-technical-documents.2020.html#dhc-and-dp\">2020 Census Demographic and Housing Characteristics File (DHC) Technical Documentation<\/a> webpage.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+To protect respondent confidentiality, data have undergone disclosure avoidance methods which add \"statistical noise\" - small, random additions or subtractions - to the data so that no one can reliably link the published data to a specific person or household. The Census Bureau encourages data users to aggregate small populations and geographies to improve accuracy and diminish implausible results.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+An \"(X)\" means not applicable.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+An \"-\" means the statistic could not be computed because there were an insufficient number of observations.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+[1] The alone or in combination categories are tallies of responses rather than respondents. That is, the alone or in combination categories are not mutually exclusive. Individuals who reported two races were counted in two separate and distinct alone or in combination race categories, while those who reported three races were counted in three categories, and so on. For example, a respondent who indicated \"White <b><i>and<\/b><\/i> Black or African American\" was counted in the White alone or in combination category as well as in the Black or African American alone or in combination category. Consequently, the sum of all alone or in combination categories equals the number of races reported (i.e., responses), which exceeds the total population.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+[2] \"Child\" includes biological, adopted, and stepchildren of the householder.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+[3] \"Own children\" includes biological, adopted, and stepchildren of the householder.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+[4] The homeowner vacancy rate is the proportion of the homeowner inventory that is vacant \"for sale.\" It is computed by dividing the total number of vacant units \"for sale only\" by the sum of owner-occupied units, vacant units that are \"for sale only,\" and vacant units that have been sold but not yet occupied; and then multiplying by 100.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+[5] The rental vacancy rate is the proportion of the rental inventory that is vacant \"for rent.\" It is computed by dividing the total number of vacant units \"for rent\" by the sum of the renter-occupied units, vacant units that are \"for rent,\" and vacant units that have been rented but not yet occupied; and then multiplying by 100.<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
+
+Source: U.S. Census Bureau, 2020 Census Demographic Profile<br/><br/>
+
+-------------------------------------------------------------------------------------------------------------
