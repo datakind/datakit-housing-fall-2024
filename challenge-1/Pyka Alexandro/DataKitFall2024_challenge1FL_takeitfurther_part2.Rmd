@@ -1,0 +1,397 @@
+---
+title: ""
+output: 
+  html_document:
+    df_print: paged
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    toc_depth: 3
+---
+
+<br>
+
+Progressing from the first [take it further analysis](https://github.com/PykaAlexandro/DataKitFall2024/blob/main/DataKitFall2024_challenge1FL_takeitfurther_part1.html), we welcome Chris Chenet's suggestions on how to advance it, picking up the Unit Size one among them, which is formulated as such:
+
+```{r, message = FALSE}
+#loading the packages
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tidytext)
+library(DT)
+library(stringr)
+library(forcats)
+```
+
+>A common question in housing policy discussions is about the breakdown of housing stock by unit size. Many developers and political offices are interested understanding how many units have 2+ bedrooms, as this data helps assess whether housing is available for families or multi-generational households (and even shared housing - which is a technique being used in the affordable housing/homelessness response spaces), who often have different needs compared to singles or couples. If there’s an undersupply of larger units in certain areas, it might point to a need for new developments that cater to these populations.
+
+and it will concentrate on Orange County in Florida.
+
+```{r, message = FALSE}
+#loading the data frame
+data_1_FL_takeitfurther_part2 <- read_csv("data_1_FL_takeitfurther_part2.csv")
+#choosing the county of interest
+county <- "Orange County"
+```
+
+# - Tenure by Household Size
+
+First we can assess the differences in tenure by household size, to see if larger households are more inclined to own or to rent.
+
+```{r, warning = FALSE}
+#defining a colorblind friendly palette
+cbbPalette <- c("#0072B2", "#D55E00")
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 people / more than 2 people
+  mutate("Max 2 People (Owner)" = rowSums(pick(`1-person (owner)`:`2-person (owner)`)),
+         "More Than 2 People (Owner)" = rowSums(pick(`3-person (owner)`:`7-or-more person (owner)`)),
+         "Max 2 People (Renter)" = rowSums(pick(`1-person (renter)`:`2-person (renter)`)),
+         "More Than 2 People (Renter)" = rowSums(pick(`3-person (renter)`:`7-or-more person (renter)`))) %>%
+#we select the variables of interest
+  select(1, 57:60) %>%
+#we transform the data into long format, for easier plotting 
+  pivot_longer(cols = 2:5, names_to = c("Household Size", "Tenure"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we create the variable we will use to order the census tracts in the graph
+  group_by(`Census Tract`, `Household Size`) %>%
+  mutate(RenterProp = Number / sum(Number),
+         RenterProp = if_else(Tenure == "Renter", RenterProp, lag(RenterProp)),
+         RenterProp = if_else(is.na(RenterProp), lead(RenterProp), RenterProp)) %>%
+  ungroup() %>%
+#we create the graph, ordering by the percentage of housing unites rented
+  ggplot(aes(reorder_within(`Census Tract`, RenterProp, `Household Size`), Number, fill = Tenure)) +
+  geom_col(position = position_fill()) +
+  facet_wrap(~ `Household Size`, scales = "free", ncol = 1) +
+  scale_fill_manual(values = cbbPalette) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title = "Breakdown of Tenure per Census Tract per Household Size \n for Orange County, Florida")
+```
+
+As it can be hard to tell from the graph, we add some recapitulative numbers for the whole county,
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 people / more than 2 people
+  mutate("Max 2 people (Owner)" = rowSums(pick(`1-person (owner)`:`2-person (owner)`)),
+         "More Than 2 people (Owner)" = rowSums(pick(`3-person (owner)`:`7-or-more person (owner)`)),
+         "Max 2 people (Renter)" = rowSums(pick(`1-person (renter)`:`2-person (renter)`)),
+         "More Than 2 people (Renter)" = rowSums(pick(`3-person (renter)`:`7-or-more person (renter)`))) %>%
+#we calculate the county totals for the previously created variables
+  summarise(across(57:60, ~ sum(.x))) %>%
+#we transform the data into long format, for a better tabulation of results
+  pivot_longer(everything(), names_to = c("Household Size", "Tenure"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we calculate the percentages over the totals for the household sizes
+  group_by(`Household Size`) %>%
+  mutate(Percentage = round(Number / sum(Number) * 100, 2))  %>%
+  ungroup() %>%
+#to place rows with the same household size close to each other
+  arrange(`Household Size`)
+```
+
+<br>
+
+and a dynamic table (downloadable to an excel file or a pdf) to explore specific census tracts.
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 people / more than 2 people, together with the percentages
+  mutate("Max 2 people (Owner)" = rowSums(pick(`1-person (owner)`:`2-person (owner)`)),
+         "More Than 2 people (Owner)" = rowSums(pick(`3-person (owner)`:`7-or-more person (owner)`)),
+         "Max 2 people (Renter)" = rowSums(pick(`1-person (renter)`:`2-person (renter)`)),
+         "More Than 2 people (Renter)" = rowSums(pick(`3-person (renter)`:`7-or-more person (renter)`)),
+         "More Than 2 people (Owner) Percentage" = round(`More Than 2 people (Owner)` / rowSums(pick(`More Than 2 people (Owner)`, `Max 2 people (Owner)`)) * 100, 2),
+         "More Than 2 people (Renter) Percentage" = round(`More Than 2 people (Renter)` / rowSums(pick(`More Than 2 people (Renter)`, `Max 2 people (Renter)`)) * 100, 2)) %>%
+#we select and order the variables of interests
+  select(1, 57, 58, 61, 59, 60, 62) %>%
+#we transform census tract into a factor to more easily select its values
+  mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+  datatable(filter = "top", 
+            rownames = FALSE, 
+            extensions = "Buttons",
+            options = list(dom = 'tpB',
+                           buttons = c('excel', 'pdf')))
+```
+
+<br>
+
+# - Tenure by Bedroom
+
+Focusing on the heart of the analysis, we will here try to understand the general tenure of housing units with more than 2 bedrooms.
+
+```{r, warning = FALSE}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 bedrooms / more than 2 bedrooms
+  mutate("Max 2 Bedrooms (Owner)" = rowSums(pick(`No bedroom (owner)`:`2 bedrooms (owner)`)),
+         "More Than 2 Bedrooms (Owner)" = rowSums(pick(`3 bedrooms (owner)`:`5 or more bedrooms (owner)`)),
+         "Max 2 Bedrooms (Renter)" = rowSums(pick(`No bedroom (renter)`:`2 bedrooms (renter)`)),
+         "More Than 2 Bedrooms (Renter)" = rowSums(pick(`3 bedrooms (renter)`:`5 or more bedrooms (renter)`))) %>%
+#we select the variables of interest
+  select(1, 57:60) %>%
+#we transform the data into long format, for easier plotting 
+  pivot_longer(cols = 2:5, names_to = c("Bedrooms", "Tenure"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we create the variable we will use to order the census tracts in the graph
+  group_by(`Census Tract`, Bedrooms)  %>%
+  mutate(RenterProp = Number / sum(Number),
+         RenterProp = if_else(Tenure == "Renter", RenterProp, lag(RenterProp)),
+         RenterProp = if_else(is.na(RenterProp), lead(RenterProp), RenterProp)) %>%
+  ungroup() %>%
+#we create the graph, ordering by the percentage of housing unites rented
+  ggplot(aes(reorder_within(`Census Tract`, RenterProp, Bedrooms), Number, fill = Tenure)) +
+  geom_col(position = position_fill()) +
+  facet_wrap(~ Bedrooms, scales = "free", ncol = 1) +
+  scale_fill_manual(values = cbbPalette) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title = "Breakdown of Tenure per Census Tract per Number of Bedrooms \n for Orange County, Florida")
+```
+
+This time it is clear to see that larger unit sizes are owned while the smaller ones are to rent.
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 bedrooms / more than 2 bedrooms
+  mutate("Max 2 Bedrooms (Owner)" = rowSums(pick(`No bedroom (owner)`:`2 bedrooms (owner)`)),
+         "More Than 2 Bedrooms (Owner)" = rowSums(pick(`3 bedrooms (owner)`:`5 or more bedrooms (owner)`)),
+         "Max 2 Bedrooms (Renter)" = rowSums(pick(`No bedroom (renter)`:`2 bedrooms (renter)`)),
+         "More Than 2 Bedrooms (Renter)" = rowSums(pick(`3 bedrooms (renter)`:`5 or more bedrooms (renter)`))) %>%
+#we calculate the county totals for the previously created variables
+  summarise(across(57:60, ~ sum(.x))) %>%
+#we transform the data into long format, for a better tabulation of results
+  pivot_longer(everything(), names_to = c("Bedrooms", "Tenure"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we calculate the percentages over the totals for the number of bedrooms
+  group_by(Bedrooms) %>%
+  mutate(Percentage = round(Number / sum(Number) * 100, 2))  %>%
+  ungroup() %>%
+#to place rows with the same number of bedrooms close to each other
+  arrange(Bedrooms)
+```
+
+<br>
+
+The usual dynamic table ensues:
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 bedrooms / more than 2 bedrooms, together with the percentages
+  mutate("Max 2 Bedrooms (Owner)" = rowSums(pick(`No bedroom (owner)`:`2 bedrooms (owner)`)),
+         "More Than 2 Bedrooms (Owner)" = rowSums(pick(`3 bedrooms (owner)`:`5 or more bedrooms (owner)`)),
+         "Max 2 Bedrooms (Renter)" = rowSums(pick(`No bedroom (renter)`:`2 bedrooms (renter)`)),
+         "More Than 2 Bedrooms (Renter)" = rowSums(pick(`3 bedrooms (renter)`:`5 or more bedrooms (renter)`)),
+         "More Than 2 Bedrooms (Owner) Percentage" = round(`More Than 2 Bedrooms (Owner)` / rowSums(pick(`More Than 2 Bedrooms (Owner)`, `Max 2 Bedrooms (Owner)`)) * 100, 2),
+         "More Than 2 Bedrooms (Renter) Percentage" = round(`More Than 2 Bedrooms (Renter)` / rowSums(pick(`More Than 2 Bedrooms (Renter)`, `Max 2 Bedrooms (Renter)`)) * 100, 2)) %>%
+#we select and order the variables of interest
+  select(1, 57, 58, 61, 59, 60, 62) %>%
+#we transform census tract into a factor to more easily select its values
+  mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+  datatable(filter = "top", 
+            rownames = FALSE, 
+            extensions = "Buttons",
+            options = list(dom = 'tpB',
+                           buttons = c('excel', 'pdf')))
+```
+
+<br>
+
+# - Bedrooms by Gross Rent
+
+Lastly we will examine the distribution of gross rent by the number of bedrooms,
+
+```{r}
+#defining a colorblind friendly palette
+cbbPalette <- c("#F0E442", "#56B4E9")
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 bedrooms / more than 2 bedrooms
+   mutate("No cash rent (Max 2 Bedrooms)" = rowSums(pick(contains("No cash rent") & !contains("3 or more bedrooms"))),
+          "Less than $300 (Max 2 Bedrooms)" = rowSums(pick(contains("Less than $300") & !contains("3 or more bedrooms"))),
+          "$300 to $499 (Max 2 Bedrooms)" = rowSums(pick(contains("$300 to $499") & !contains("3 or more bedrooms"))),
+          "$500 to $749 (Max 2 Bedrooms)" = rowSums(pick(contains("$500 to $749") & !contains("3 or more bedrooms"))),
+          "$750 to $999 (Max 2 Bedrooms)" = rowSums(pick(contains("$750 to $999") & !contains("3 or more bedrooms"))),
+          "$1,000 to $1,499 (Max 2 Bedrooms)" = rowSums(pick(contains("$1,000 to $1,499") & !contains("3 or more bedrooms"))),
+          "$1,500 or more (Max 2 Bedrooms)" = rowSums(pick(contains("$1,500 or more") & !contains("3 or more bedrooms"))),
+          "No cash rent (More Than 2 Bedrooms)" = rowSums(pick(contains("No cash rent") & contains("3 or more bedrooms"))),
+          "Less than $300 (More Than 2 Bedrooms)" = rowSums(pick(contains("Less than $300") & contains("3 or more bedrooms"))),
+          "$300 to $499 (More Than 2 Bedrooms)" = rowSums(pick(contains("$300 to $499") & contains("3 or more bedrooms"))),
+          "$500 to $749 (More Than 2 Bedrooms)" = rowSums(pick(contains("$500 to $749") & contains("3 or more bedrooms"))),
+          "$750 to $999 (More Than 2 Bedrooms)" = rowSums(pick(contains("$750 to $999") & contains("3 or more bedrooms"))),
+          "$1,000 to $1,499 (More Than 2 Bedrooms)" = rowSums(pick(contains("$1,000 to $1,499") & contains("3 or more bedrooms"))),
+          "$1,500 or more (More Than 2 Bedrooms)" = rowSums(pick(contains("$1,500 or more") & contains("3 or more bedrooms")))) %>%
+#we transform the data into long format, for easier plotting 
+  pivot_longer(cols = 57:70, names_to = c("Rent", "Bedroom"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we clean and define the Rent variable as a factor, to have the different gross rents in order on the graph
+  mutate(Rent = str_trim(Rent),
+         Rent = fct_rev(factor(Rent, levels = c("No cash rent", "Less than $300", "$300 to $499", "$500 to $749", "$750 to $999", "$1,000 to $1,499", "$1,500 or more"), ordered = TRUE))) %>%
+#we plot the data
+  ggplot(aes(Rent, Number, fill = Bedroom)) +
+  geom_col(position = position_fill()) +
+  scale_fill_manual(values = cbbPalette, breaks = c("More Than 2 Bedrooms", "Max 2 Bedrooms")) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  coord_flip() +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title = "Distribution of Gross Rent by Number of Bedrooms, \n for Orange County, Florida")
+```
+
+and we can surely see two distinct behaviours among all the different gross rent brackets.  
+We more precisely quantify them in the following table,
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 bedrooms / more than 2 bedrooms
+   mutate("No cash rent (Max 2 Bedrooms)" = rowSums(pick(contains("No cash rent") & !contains("3 or more bedrooms"))),
+         "Less than $300 (Max 2 Bedrooms)" = rowSums(pick(contains("Less than $300") & !contains("3 or more bedrooms"))),
+         "$300 to $499 (Max 2 Bedrooms)" = rowSums(pick(contains("$300 to $499") & !contains("3 or more bedrooms"))),
+         "$500 to $749 (Max 2 Bedrooms)" = rowSums(pick(contains("$500 to $749") & !contains("3 or more bedrooms"))),
+         "$750 to $999 (Max 2 Bedrooms)" = rowSums(pick(contains("$750 to $999") & !contains("3 or more bedrooms"))),
+         "$1,000 to $1,499 (Max 2 Bedrooms)" = rowSums(pick(contains("$1,000 to $1,499") & !contains("3 or more bedrooms"))),
+         "$1,500 or more (Max 2 Bedrooms)" = rowSums(pick(contains("$1,500 or more") & !contains("3 or more bedrooms"))),
+         "No cash rent (More Than 2 Bedrooms)" = rowSums(pick(contains("No cash rent") & contains("3 or more bedrooms"))),
+         "Less than $300 (More Than 2 Bedrooms)" = rowSums(pick(contains("Less than $300") & contains("3 or more bedrooms"))),
+         "$300 to $499 (More Than 2 Bedrooms)" = rowSums(pick(contains("$300 to $499") & contains("3 or more bedrooms"))),
+         "$500 to $749 (More Than 2 Bedrooms)" = rowSums(pick(contains("$500 to $749") & contains("3 or more bedrooms"))),
+         "$750 to $999 (More Than 2 Bedrooms)" = rowSums(pick(contains("$750 to $999") & contains("3 or more bedrooms"))),
+         "$1,000 to $1,499 (More Than 2 Bedrooms)" = rowSums(pick(contains("$1,000 to $1,499") & contains("3 or more bedrooms"))),
+         "$1,500 or more (More Than 2 Bedrooms)" = rowSums(pick(contains("$1,500 or more") & contains("3 or more bedrooms")))) %>%
+#we calculate the county totals for the previously created variables
+  summarise(across(57:70, ~ sum(.x))) %>%
+#we transform the data into long format, for a better tabulation of results
+  pivot_longer(everything(), names_to = c("Rent", "Bedrooms"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we clean and define the Rent variable as a factor, to have the different gross rents in order on the table
+  mutate(Rent = str_trim(Rent),
+         Rent = fct_rev(factor(Rent, levels = c("No cash rent", "Less than $300", "$300 to $499", "$500 to $749", "$750 to $999", "$1,000 to $1,499", "$1,500 or more"), ordered = TRUE))) %>%
+#we calculate the percentages over the totals for the number of bedrooms
+  group_by(Rent) %>%
+  mutate(Percentage = round(Number / sum(Number) * 100, 2))  %>%
+  ungroup() %>%
+#we place the values of the Rent and Bedrooms columns to facilitate understanding the percentages
+  arrange(desc(Rent), desc(Bedrooms))
+```
+
+<br>
+
+and as usual we provide a dynamic one for more fine investigations.
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we create the variables for max 2 bedrooms / more than 2 bedrooms
+   mutate("No cash rent (Max 2 Bedrooms)" = rowSums(pick(contains("No cash rent") & !contains("3 or more bedrooms"))),
+         "Less than $300 (Max 2 Bedrooms)" = rowSums(pick(contains("Less than $300") & !contains("3 or more bedrooms"))),
+         "$300 to $499 (Max 2 Bedrooms)" = rowSums(pick(contains("$300 to $499") & !contains("3 or more bedrooms"))),
+         "$500 to $749 (Max 2 Bedrooms)" = rowSums(pick(contains("$500 to $749") & !contains("3 or more bedrooms"))),
+         "$750 to $999 (Max 2 Bedrooms)" = rowSums(pick(contains("$750 to $999") & !contains("3 or more bedrooms"))),
+         "$1,000 to $1,499 (Max 2 Bedrooms)" = rowSums(pick(contains("$1,000 to $1,499") & !contains("3 or more bedrooms"))),
+         "$1,500 or more (Max 2 Bedrooms)" = rowSums(pick(contains("$1,500 or more") & !contains("3 or more bedrooms"))),
+         "No cash rent (More Than 2 Bedrooms)" = rowSums(pick(contains("No cash rent") & contains("3 or more bedrooms"))),
+         "Less than $300 (More Than 2 Bedrooms)" = rowSums(pick(contains("Less than $300") & contains("3 or more bedrooms"))),
+         "$300 to $499 (More Than 2 Bedrooms)" = rowSums(pick(contains("$300 to $499") & contains("3 or more bedrooms"))),
+         "$500 to $749 (More Than 2 Bedrooms)" = rowSums(pick(contains("$500 to $749") & contains("3 or more bedrooms"))),
+         "$750 to $999 (More Than 2 Bedrooms)" = rowSums(pick(contains("$750 to $999") & contains("3 or more bedrooms"))),
+         "$1,000 to $1,499 (More Than 2 Bedrooms)" = rowSums(pick(contains("$1,000 to $1,499") & contains("3 or more bedrooms"))),
+         "$1,500 or more (More Than 2 Bedrooms)" = rowSums(pick(contains("$1,500 or more") & contains("3 or more bedrooms")))) %>%
+#we select the variables of interest
+  select(1, 57:70) %>%
+#we transform census tract into a factor to more easily select its values
+  mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+  datatable(filter = "top",
+              rownames = FALSE,
+              extensions = c("Buttons", "FixedColumns"),
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf'),
+                             scrollX = TRUE, 
+                             fixedColumns = list(leftColumns = 1)))
+```
+
+<br>
+
+# - Breakdown of Unit Sizes
+
+Following this request from Gwen Beebe,
+
+> I'm wondering whether it's possible to get more finely-grained than "up to 2 bedrooms"/"more than 2 bedrooms"? Understanding how many three-bedrooms or studios are available, for instance, could be very helpful!
+
+we will here provide with a more precise breakdown of the number of housing units by their sizes and tenure, for Orange County, Florida, with the usual graph and tables.
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we select the variables of interest
+  select(1, 17:28) %>%
+#we transform the data into long format, for easier plotting 
+  pivot_longer(cols = 2:13, names_to = c("Bedrooms", "Tenure"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we clean and define the Bedroom variable as a factor, to have its different values in order on the table
+  mutate(Bedrooms = str_trim(Bedrooms),
+         Bedrooms = fct_rev(factor(Bedrooms, levels = c("No bedroom", "1 bedroom", "2 bedrooms", "3 bedrooms", "4 bedrooms", "5 or more bedrooms"), ordered = TRUE)),
+#we capitalize the values of the Tenure variable
+         Tenure = str_to_title(Tenure)) %>%
+#we plot the data
+  ggplot(aes(Bedrooms, Number)) +
+  geom_col(fill = "#0072B2") +
+  scale_y_continuous(labels = scales::label_number()) +
+  coord_flip() +
+  facet_wrap(~ Tenure) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title = "Breakdown of Unit Size by Tenure, for Orange County, Florida")
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we calculate the county totals for the number of bedrooms
+  summarise(across(17:28, ~ sum(.x))) %>%
+#we transform the data into long format, for a better tabulation of results
+  pivot_longer(everything(), names_to = c("Bedrooms", "Tenure"), names_pattern = "^([^()]+)[(](.*)[)]$", values_to = "Number") %>%
+#we calculate the percentages over the totals for the number of bedrooms, splitting by tenure
+  group_by(Tenure) %>%
+  mutate(Percentage = round(Number / sum(Number) * 100, 2))  %>%
+  ungroup()
+data_1_FL_takeitfurther_part2 %>%
+#we pick the county of choice
+  filter(County == county) %>%
+#we select the variables of interest
+  select(1, 17:28) %>%
+#we transform census tract into a factor to more easily select its values
+  mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+  datatable(filter = "top",
+              rownames = FALSE,
+              extensions = c("Buttons", "FixedColumns"),
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf'),
+                             scrollX = TRUE, 
+                             fixedColumns = list(leftColumns = 1)))
+```

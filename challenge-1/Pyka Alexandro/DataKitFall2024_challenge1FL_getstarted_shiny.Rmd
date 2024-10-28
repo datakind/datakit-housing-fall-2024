@@ -1,0 +1,887 @@
+---
+title: ""
+output: 
+  html_document:
+    df_print: paged
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    toc_depth: 3
+runtime: shiny
+---
+
+# - Introduction
+
+In this document we will try to provide some tools to answer the questions outlined in the [challenge #1](https://github.com/datakind/datakit-housing-fall-2024/discussions/1) of the Fall 2024 DataKit event, that is about "understanding the deficit–or surplus–in available housing units for households at different income levels".   
+We will specifically concentrate on gaining information about the economic possibilities of the populace of a county of choice for the state of Florida.
+
+NOTE: changing a County or an AMI slider will change all the graphs and tables in the document to match that selection.
+
+```{r, message = FALSE, warning = FALSE}
+#loading all the various packages
+library(readr)
+library(tibble)
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(stringr)
+library(DT)
+library(shiny)
+#loading the data frame
+data_1_FL_getstarted <- read_csv("data_1_FL_getstarted.csv")
+```
+
+# - Visualizing the Incomes
+
+In our first approach we will visualize the distribution of incomes, and then we will segment it following these thresholds,
+
+```{r}
+renderTable({tibble(Income = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"),
+                    Thresholds = c("Below 30% of AMI", "Below 50% of AMI", "Below 80% of AMI", "Between 80% and 120% of AMI", "> 120% AMI"))})
+```
+
+as defined by the US Dept of Housing and Urban Development, where AMI stands for Area Median Income.
+
+<br>
+
+## - General Incomes
+
+The following graph shows the distribution of income (defined as the Estimate of the Median Household Income in the last 12 Months) per Census Tract.   
+As with all the following graphs and tables, we can change the county and the relative AMI to investigate different areas.
+
+```{r, message = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+renderPlot({general_graph <- data_1_FL_getstarted %>%
+#we pick the county of choice
+  filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+  mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+  ggplot(aes(med_hh_inc_est)) +
+  geom_density()
+#we save the graph's information into an object
+general_built <- ggplot_build(general_graph)
+general_built_data <- data.frame(general_built$data[[1]], stringsAsFactors = F)
+#we add the segments based on the county's AMI
+general_built_data <- general_built_data %>%
+  mutate(Income = case_when(x < input$AMI * 0.3 ~ "Extremely Low",
+                            x >= input$AMI * 0.3 & x < input$AMI * 0.5 ~ "Very Low",
+                            x >= input$AMI * 0.5 & x < input$AMI * 0.8 ~ "Low",
+                            x >= input$AMI * 0.8 & x < input$AMI * 1.2 ~ "Moderate",
+                            x >= input$AMI * 1.2 ~ "Upper"),
+#we define Income as an ordered factor variable to have the segments ordered in the graph
+         Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE))
+#we define a colorblind friendly palette
+cbbPalette <- c("#000000", "#E69F00", "#F0E442", "#56B4E9", "#009E73")
+#we plot the income distribution segmented by the different income levels
+ggplot(data = general_built_data, aes(x, y, fill = Income)) +
+  geom_line() +
+  geom_area() +
+  geom_vline(xintercept = input$AMI, linetype = 2) +
+  scale_x_continuous(labels =  scales::label_dollar()) +
+  scale_y_continuous(labels = NULL, breaks = NULL) +
+  scale_fill_manual(values = cbbPalette) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title ="Distribution of Income per Census Tract")})
+```
+
+<br>
+
+We can complement the graph with a table, to know how many census tracts are in each segment.
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+renderTable({data_1_FL_getstarted %>%
+#we pick the county of choice
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we select the columns of interest, changing name to the income one    
+    select(geoid, Income = med_hh_inc_est) %>%
+#we add the segments based on the county's AMI
+    mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                              Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                              Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                              Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                              Income >= input$AMI * 1.2 ~ "Upper"),
+#we define Income as an ordered factor variable to have the segments ordered 
+         Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE)) %>%
+#we construct the table
+    count(Income, name = "Number of Census Tracts")})
+```
+
+A possible NA line tells us how many census tracts have missing data.
+
+<br>
+
+## - Segmenting by Race & Ethnicity
+
+Moving from the general income, we can extract more interesting insights if we segment by other factors so, starting with Race & Ethnicity (of Householder), we can produce this graph:
+
+```{r, message = FALSE}
+#data frame preparation
+df_race <- data_1_FL_getstarted %>%
+#we only select the columns of interest  
+  select(geoid, county, contains("inc") & contains("est") & !contains("age"), -med_hh_inc_est) %>%
+#we change the negative values (present with missing data) to NAs  
+  mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we make the Race columns more readable
+  rename(White = med_inc_white_est,
+         "Black or African American" = med_inc_black_est,
+         "American Indian and Alaska Native" = med_inc_ai_an_est,
+         "Asian" = med_inc_asian_est,
+         "Native Hawaiian and other Pacific Islander" = med_inc_nhopi_est,
+         "Some other Race" = med_inc_other_race_est,
+         "Two or more Races" = med_inc_2plus_races_est,
+         "Hispanic or Latino Origin" = med_inc_hisp_est,
+         "White Alone" = med_inc_white_nh_est) %>%
+#we transform the data frame into long format, for easier plotting  
+  pivot_longer(cols = 3:last_col(), names_to = "Race", values_to = "Income")
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+#we construct the graph for the county of choice, splitting by Race & Ethnicity
+renderPlot({race_graph <- df_race %>%
+  filter(county == input$county &
+#necessary to remove Races not present with an Income in a census tract for the chosen county            
+           !is.na(Income)) %>%
+  ggplot(aes(Income)) +
+  geom_density()  +
+  facet_wrap(~ Race)
+#we save the graph's information into an object
+race_built <- ggplot_build(race_graph)
+race_built_data <- data.frame(race_built$data[[1]], stringsAsFactors = F)
+race_built_data <- race_built_data %>%
+#we add the segments based on the county's AMI
+  mutate(Income = case_when(x < input$AMI * 0.3 ~ "Extremely Low",
+                            x >= input$AMI * 0.3 & x < input$AMI * 0.5 ~ "Very Low",
+                            x >= input$AMI * 0.5 & x < input$AMI * 0.8 ~ "Low",
+                            x >= input$AMI * 0.8 & x < input$AMI * 1.2 ~ "Moderate",
+                            x >= input$AMI * 1.2 ~ "Upper"),
+#we define Income as an ordered factor variable to have the segments ordered in the graph 
+         Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE),
+#we dynamically define the labels for the Race factor variable (necessary for facet_wrap()), only from Races present with an Income in the chosen County      
+         Race = factor(PANEL, labels = sort(unique(df_race[df_race$county == input$county & !is.na(df_race$Income), ]$Race)))) %>%
+#we remove the Races that have fewer than two data points (geom_density() couldn't construct a curve for them) 
+  filter(!is.na(x))
+#we define a colorblind friendly palette
+cbbPalette <- c("#000000", "#E69F00", "#F0E442", "#56B4E9", "#009E73")
+#we plot the income distribution segmented by the different income levels and further segmented by Race & Ethnicity
+ggplot(data = race_built_data, aes(x, y, fill = Income)) +
+  geom_line() +
+  geom_area() +
+  scale_fill_manual(values = cbbPalette) +
+  geom_vline(xintercept = input$AMI, linetype = 2) +
+  facet_wrap(~ Race, ncol = 2) +
+  scale_x_continuous(labels =  scales::label_dollar()) +
+  scale_y_continuous(labels = NULL, breaks = NULL) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title = "Distribution of Income per Census Tract, segmented by Race & Ethnicity")})
+```
+
+As before, we can add a table to have some hard numbers:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+renderTable({df_race %>%
+#we pick the county of choice
+    filter(county == input$county &
+#necessary to remove Races not present with an Income in a census tract for the chosen county    
+             !is.na(Income)) %>%
+#we add the segments based on the county's AMI
+    mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                              Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                              Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                              Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                              Income >= input$AMI * 1.2 ~ "Upper"),
+#we define Income as an ordered factor variable to have the segments ordered 
+           Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE)) %>%
+#we construct the table
+    count(Income, Race) %>%
+#we transform the table into a wide format, for an easier consulting
+    pivot_wider(names_from = Race, values_from = n, values_fill = 0)})
+```
+
+<br>
+
+## - Segmenting by Age
+
+Lastly, we can study the income distribution by Age
+
+```{r, warning = FALSE}
+#data frame preparation
+df_age <- data_1_FL_getstarted %>%
+#we only select the columns of interest    
+  select(geoid, county, contains("inc") & contains("age")) %>%
+#we change the negative values (present with missing data) to NAs    
+  mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we transform the data frame into a long format, for easier plotting  
+  tidyr::pivot_longer(cols = 3:last_col(), names_to = "Age", values_to = "Income") %>%
+#we make the Age column more readable  
+  mutate(Age = str_sub(Age, start = 9, end = -5),
+         Age = str_replace_all(Age, "_", " "),
+         Age = str_to_title(Age))
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+#we construct the graph for the county of choice, splitting by Age
+renderPlot({age_graph <- df_age %>%
+  filter(county == input$county &
+#necessary to remove Ages not present with an Income in a census tract for the chosen county 
+            !is.na(Income)) %>%
+  ggplot(aes(Income)) +
+  geom_density()  +
+  facet_wrap(~ Age)
+#we save the graph's information into an object
+age_built <- ggplot_build(age_graph)
+age_built_data <- data.frame(age_built$data[[1]], stringsAsFactors = F)
+#we add the segments based on the county's AMI
+age_built_data <- age_built_data %>%
+  mutate(Income = case_when(x < input$AMI * 0.3 ~ "Extremely Low",
+                            x >= input$AMI * 0.3 & x < input$AMI * 0.5 ~ "Very Low",
+                            x >= input$AMI * 0.5 & x < input$AMI * 0.8 ~ "Low",
+                            x >= input$AMI * 0.8 & x < input$AMI * 1.2 ~ "Moderate",
+                            x >= input$AMI * 1.2 ~ "Upper"),
+         Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE),
+#we dynamically define the labels for the Age factor variable (necessary for facet_wrap()), only from Ages present with an Income in the chosen County     
+         Age = factor(PANEL, labels = sort(unique(df_age[df_age$county == input$county & !is.na(df_age$Income), ]$Age)))) %>%
+#we remove the Ages that have fewer than two data points (geom_density() couldn't construct a curve for them)   
+  filter(!is.na(x))
+#we define a colorblind friendly palette
+cbbPalette <- c("#000000", "#E69F00", "#F0E442", "#56B4E9", "#009E73")
+#we plot the income distribution segmented by the different income levels and further segmented by Age
+ggplot(data = age_built_data, aes(x, y, fill = Income)) +
+  geom_line() +
+  geom_area() +
+  scale_fill_manual(values = cbbPalette) +
+  geom_vline(xintercept = input$AMI, linetype = 2) +
+  facet_wrap(~ Age) +
+  scale_x_continuous(labels =  scales::label_dollar()) +
+  scale_y_continuous(labels = NULL, breaks = NULL) +
+  theme(legend.position = "bottom",
+        legend.title = element_blank()) +
+  labs(x = NULL,
+       y = NULL,
+       title = "Distribution of Income per Census Tract, segmented by Age")})
+```
+
+<br>
+
+The following table can help in better quantify the graph:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+renderTable({df_age %>%
+#we pick the county of choice
+    filter(county == input$county &
+#necessary to remove Ages not present with an Income in a census tract for the chosen county              
+             !is.na(Income)) %>%
+#we add the segments based on the county's AMI    
+    mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                            Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                            Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                            Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                            Income >= input$AMI * 1.2 ~ "Upper"),
+#we define Income as an ordered factor variable to have the segments ordered 
+         Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE)) %>%
+#we construct the table
+  count(Income, Age) %>%
+#we transform the table into a wide format, for an easier consulting
+  pivot_wider(names_from = Age, values_from = n, values_fill = 0) %>%
+#we move Age 65plus last 
+  relocate(`Age 65plus`, .after = last_col())})
+```
+
+<br>
+
+## - Segmenting (the Earnings) by Sex
+
+We also have some information about earnings (defined as the Estimate of Median Earnings (Dollars) in the Past 12 Months)
+
+```{r, warning = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_getstarted %>%
+#we construct the graph for the county of choice
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we plot the distribution
+    ggplot(aes(earn_med_est)) +
+    geom_density(fill = "#0072B2") +
+    scale_x_continuous(labels =  scales::label_dollar()) +
+    scale_y_continuous(labels = NULL, breaks = NULL) +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Earnings per Census Tract")})
+```
+
+<br>
+
+and how they differentiate by sex.
+
+```{r, warning = FALSE}
+df_sex <- data_1_FL_getstarted %>%
+#we only select the columns of interest 
+  select(geoid, county, contains("earn") & contains("est") & (contains("male") | contains("fem"))) %>%
+#we change the negative values (present with missing data) to NAs   
+  mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we make the Sex column more readable
+  mutate(Male = earn_med_male_est,
+         Female = earn_med_fem_est, .keep = "unused") %>%
+#we transform the data frame into a long format, for easier plotting    
+  tidyr::pivot_longer(cols = 3:last_col(), names_to = "Sex", values_to = "Earnings")
+#we define a colorblind friendly palette
+cbbPalette <- c("#D55E00", "#CC79A7")
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderPlot({df_sex %>%
+#we construct the graph for the county of choice
+    filter(county == input$county) %>%
+    ggplot(aes(Earnings, fill = Sex)) +
+    geom_density() +
+    facet_wrap(~ Sex) +
+    scale_fill_manual(values = cbbPalette) +
+    scale_x_continuous(labels =  scales::label_dollar()) +
+    scale_y_continuous(labels = NULL, breaks = NULL) +
+    theme(legend.position = "none") +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Earnings per Census Tract, segmenting by Sex")})
+```
+
+We didn't compare them to the AMI (as they are different quantities) but they can be interesting to investigate either way.
+
+<br>
+
+# - Tabulation of Segments
+
+We will also provide some interactive tables to facilitate the data exploration (to note, every table is downloadable through the designated button either as an excel or a pdf file)
+
+<br>
+
+## - Race & Ethnicity Table
+
+In this table we can choose an income segment and/or a Race to individuate the Census Tract.
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+renderDT({df_race %>%
+#we pick the county of choice
+    filter(county == input$county &
+#we remove the rows without a value in the Income column
+             !is.na(Income)) %>%
+#we add the segments based on the county's AMI 
+    mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                              Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                              Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                              Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                              Income >= input$AMI * 1.2 ~ "Upper"),
+#we define Income, Race and geoid as factor to easily select between their values in the table
+           Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE),
+           Race = factor(Race),
+           geoid = factor(geoid)) %>%
+#we select the columns of interest, changing the name of geoid 
+    select(Income, Race, "Census Tract" = geoid) %>%
+#we prepare the dynamic table
+    datatable(filter = "top", 
+              rownames = FALSE,
+              extensions = 'Buttons',
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+## - Age Table
+
+The same thing, but for the age brackets.
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+renderDT({df_age %>%
+#we pick the county of choice  
+    filter(county == input$county &
+#we remove the rows without a value in the Income column
+             !is.na(Income)) %>%
+#we add the segments based on the county's AMI 
+    mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                              Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                              Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                              Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                              Income >= input$AMI * 1.2 ~ "Upper"),
+#we define Income, Race and geoid as factor to easily select between their values in the table
+           Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE),
+           Age = factor(Age),
+           geoid = factor(geoid)) %>%
+#we select the columns of interest, changing the name of geoid 
+    select(Income, Age, "Census Tract" = geoid) %>%
+#we prepare the dynamic table
+    datatable(filter = "top",
+              rownames = FALSE, 
+              extensions = "Buttons",
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+## - Census Tract Table
+
+Here instead we choose a Census Tract to get information about the income segments present in it, differentiating by both Race & Ethnicity and Age.
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#to choose the AMI
+sliderInput("AMI", 
+            label = "Area Median Income",
+            min = 49400, max = 105000, value = 96700, step = 100)
+#we bind the race and age tables together
+renderDT({df_race %>%
+    mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                              Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                              Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                              Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                              Income >= input$AMI * 1.2 ~ "Upper"),
+           Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE)) %>%
+    pivot_wider(names_from = Race, values_from = Income) %>%
+    bind_cols(df_age %>%
+                mutate(Income = case_when(Income < input$AMI * 0.3 ~ "Extremely Low",
+                                          Income >= input$AMI * 0.3 & Income < input$AMI * 0.5 ~ "Very Low",
+                                          Income >= input$AMI * 0.5 & Income < input$AMI * 0.8 ~ "Low",
+                                          Income >= input$AMI * 0.8 & Income < input$AMI * 1.2 ~ "Moderate",
+                                          Income >= input$AMI * 1.2 ~ "Upper"),
+                       Income = factor(Income, levels = c("Extremely Low", "Very Low", "Low", "Moderate", "Upper"), ordered = TRUE)) %>%
+                pivot_wider(names_from = Age, values_from = Income) %>%
+                select(-geoid, -county)) %>%
+#we select the county of interest
+    filter(county == input$county) %>%
+#we select the columns of interest, changing the name of geoid
+    select("Census Tract" = geoid, everything(), -county) %>%
+#we transform the columns into factors, to easily select between their values in the table
+    mutate(across(everything(), ~ factor(.x))) %>%
+#we prepare the dynamic table
+    datatable(filter = "top",
+              rownames = FALSE,
+              extensions = c("Buttons", "FixedColumns"),
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf'),
+                             scrollX = TRUE, 
+                             fixedColumns = list(leftColumns = 1)))})
+```
+
+<br>
+
+# - Cost of Housing vs Income
+
+Another avenue of exploration is the cost of housing, defined as Median Monthly Housing Cost (Occupied Housing Units), versus the income. To quantity it we will use the Cost Income Ratio, that is defined as the percentage of the income that goes into housing (cost / income * 100). As we have access to a monthly median cost, we will multiply it times 12 to compare with the annual income.
+
+## - General Income
+
+As before, we start with the general income, but instead of the curves seen until now we will use box plots, where it is important to know that the box contains 50% of the data points (Census Tracts in this case):
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_getstarted %>%
+#we select the columns of interest
+  select(geoid, county, med_hh_inc_est, contains("housecost") & contains("est")) %>%
+#we pick the county of choice
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs 
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we create the cost income ratio variable  
+    mutate(housing_cost_est = housecost_med_est * 12,
+           cost_income_ratio = housing_cost_est / med_hh_inc_est) %>%
+#we plot the distributions
+    ggplot(aes("", cost_income_ratio)) +
+    geom_boxplot() +
+    scale_y_continuous(labels =  scales::label_percent()) +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Cost Income Ratio per Census Tract")})
+```
+
+<br>
+
+If we want to investigate specific instances we can use this dynamic table:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_getstarted %>%
+#we select the columns of interest
+    select(geoid, county, med_hh_inc_est, contains("housecost") & contains("est")) %>%
+#we pick the county of choice    
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we create the cost income ratio variable  
+    mutate(housing_cost_est = housecost_med_est * 12,
+           cost_income_ratio = round(housing_cost_est / med_hh_inc_est * 100, 2)) %>%
+#we select and change the names of the columns of interest
+    select("Census Tract" = geoid, Cost = housing_cost_est, Income = med_hh_inc_est, "Cost Income Ratio %" = cost_income_ratio) %>%
+#we transform the columns into factors, to easily select between their values in the table
+    mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table 
+    datatable(filter = "top", 
+              rownames = FALSE, 
+              extensions = "Buttons",
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+We can split the graph in two, segmenting on whether the house is owned or rented,
+
+```{r, warning = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#we define a colorblind friendly palette
+cbbPalette <- c("#D55E00", "#CC79A7")
+renderPlot({data_1_FL_getstarted %>%
+#we select the columns of interest
+    select(geoid, county, med_hh_inc_est, contains("housecost") & contains("est")) %>%
+#we pickthe county of choice    
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x)),
+#we make the tenure columns more readable         
+           Owner = housecost_owner_est,
+           Renter = housecost_rent_est) %>%
+#we transform the data into long format, for easier plotting  
+    pivot_longer(cols = c("Owner", "Renter"), names_to = "Tenure", values_to = "Cost") %>%
+#we create the cost income ratio variable  
+    mutate(Cost = Cost * 12,
+           cost_income_ratio = Cost / med_hh_inc_est) %>%
+#we plot the distributions  
+    ggplot(aes("", cost_income_ratio, fill = Tenure)) +
+    geom_boxplot() +
+    facet_wrap(~ Tenure, ncol = 2) +
+    scale_fill_manual(values = cbbPalette)  +
+    scale_y_continuous(labels =  scales::label_percent()) +
+    theme(legend.position = "none") +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Cost Income Ratio per Census Tract, segmenting by Tenure")})
+```
+
+<br>
+
+We provide again a dynamic table:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_getstarted %>%
+#we select the columns of interest
+    select(geoid, county, med_hh_inc_est, contains("housecost") & contains("est")) %>%
+#we pick the county of choice    
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x)),
+#we make the tenure columns more readable         
+           Owner = housecost_owner_est,
+           Renter = housecost_rent_est) %>%
+#we transform the data into long format, for easier plotting  
+    pivot_longer(cols = c("Owner", "Renter"), names_to = "Tenure", values_to = "Cost") %>%
+#we create the cost income ratio variable  
+    mutate(Cost = Cost * 12,
+           cost_income_ratio = round(Cost / med_hh_inc_est * 100, 2)) %>%
+#we select and change the names of the columns of interest
+    select("Census Tract" = geoid, 7, 8, Income = med_hh_inc_est, "Cost Income Ratio %" = cost_income_ratio) %>%
+#we transform the columns into factors, to easily select between their values in the table
+    mutate(across(where(is.character), ~ factor(.x)),
+           `Census Tract` = factor(`Census Tract`)) %>%
+#we prepare the dynamic table 
+    datatable(filter = "top", 
+              rownames = FALSE, 
+              extensions = "Buttons",
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+## - Race & Ethnicity
+
+We can continue segmenting by Race (& Ethnicity):
+
+```{r, warning = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#we define a colorblind friendly palette
+cbbPalette <- c("#D55E00", "#CC79A7")
+renderPlot({data_1_FL_getstarted %>%
+#we select the columns of interest  
+    select(geoid, county, contains("housecost") & contains("est"), contains("inc") & contains("est") & !contains("age")) %>%
+#we pick the county of choice    
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x)),
+#we make the tenure columns more readable           
+           Owner = housecost_owner_est,
+           Renter = housecost_rent_est) %>%
+#we make the Race columns more readable  
+    rename(White = med_inc_white_est,
+           "Black or African American" = med_inc_black_est,
+           "American Indian and Alaska Native" = med_inc_ai_an_est,
+           "Asian" = med_inc_asian_est,
+           "Native Hawaiian and other Pacific Islander" = med_inc_nhopi_est,
+           "Some other Race" = med_inc_other_race_est,
+           "Two or more Races" = med_inc_2plus_races_est,
+           "Hispanic or Latino Origin" = med_inc_hisp_est,
+           "White Alone" = med_inc_white_nh_est) %>%
+#we transform the data into long format, for easier plotting    
+    pivot_longer(cols = c("Owner", "Renter"), names_to = "Tenure", values_to = "Cost") %>%
+    pivot_longer(cols = White:`White Alone`, names_to = "Race", values_to = "Income") %>%
+#we create the cost income ratio variable 
+    mutate(Cost = Cost * 12,
+           cost_income_ratio = Cost / Income) %>%
+#we remove the census tracts with no data, to not have unplottable values
+    filter(!is.na(cost_income_ratio)) %>%
+#we plot the data  
+    ggplot(aes(Tenure, cost_income_ratio, fill = Tenure)) +
+    geom_boxplot() +
+    facet_wrap(~ Race, scales = "free") +
+    scale_fill_manual(values = cbbPalette)  +
+    scale_y_continuous(labels =  scales::label_percent()) +
+    theme(legend.position = "none") +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Cost Income Ratio per Census Tract, segmenting by Tenure and Race (& Ethnicity)")})
+```
+
+As before, we provide a dynamic table as well:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_getstarted %>%
+#we select the columns of interest  
+    select(geoid, county, contains("housecost") & contains("est"), contains("inc") & contains("est") & !contains("age")) %>%
+#we pick the county of choice    
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x)),
+#we make the houseownership columns more readable           
+           Owner = housecost_owner_est,
+           Renter = housecost_rent_est) %>%
+#we make the Race columns more readable  
+    rename(White = med_inc_white_est,
+           "Black or African American" = med_inc_black_est,
+           "American Indian and Alaska Native" = med_inc_ai_an_est,
+           "Asian" = med_inc_asian_est,
+           "Native Hawaiian and other Pacific Islander" = med_inc_nhopi_est,
+           "Some other Race" = med_inc_other_race_est,
+           "Two or more Races" = med_inc_2plus_races_est,
+           "Hispanic or Latino Origin" = med_inc_hisp_est,
+           "White alone" = med_inc_white_nh_est) %>%
+#we transform the data into long format, for easier plotting    
+    pivot_longer(cols = c("Owner", "Renter"), names_to = "Tenure", values_to = "Cost") %>%
+    pivot_longer(cols = White:`White alone`, names_to = "Race", values_to = "Income") %>%
+#we create the cost income ratio variable 
+    mutate(Cost = Cost * 12,
+           cost_income_ratio = round(Cost / Income * 100, 2)) %>%
+#we select and change name of the variables of interest
+    select(-c(2, 3, 4, 5, 6), "Census Tract" = geoid, "Cost Income Ratio %" = cost_income_ratio)  %>%
+#we move Race after Tenure
+    relocate(Race, .after = Tenure) %>%
+#we transform the columns into factors, to easily select between their values in the table
+    mutate(across(where(is.character), ~ factor(.x)),
+           `Census Tract` = factor(`Census Tract`)) %>%
+#we prepare the dynamic table
+    datatable(filter = "top", 
+              rownames = FALSE, 
+              extensions = "Buttons",
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+## - Age
+
+We can apply the same kind of analysis to ages:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+#we define a colorblind friendly palette
+cbbPalette <- c("#D55E00", "#CC79A7")
+renderPlot({data_1_FL_getstarted %>%
+#we select the columns of interest  
+    select(geoid, county, contains("housecost") & contains("est"), contains("inc") & contains("est") & contains("age")) %>%
+#we pick the county of choice    
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x)),
+#we make the tenure columns more readable           
+           Owner = housecost_owner_est,
+           Renter = housecost_rent_est) %>%
+#we transform the data into long format, for easier plotting    
+    pivot_longer(cols = c("Owner", "Renter"), names_to = "Tenure", values_to = "Cost") %>%
+    pivot_longer(cols = contains("inc"), names_to = "Age", values_to = "Income") %>%
+#we make the Age column more readable  
+    mutate(Age = str_sub(Age, start = 9, end = -5),
+           Age = str_replace_all(Age, "_", " "),
+           Age = str_to_title(Age)) %>%
+#we create the cost income ratio variable 
+    mutate(Cost = Cost * 12,
+           cost_income_ratio = Cost / Income) %>%
+#we remove the census tracts with no data, to not have unplottable values
+    filter(!is.na(cost_income_ratio)) %>%
+#we plot the data
+    ggplot(aes(Tenure, cost_income_ratio, fill = Tenure)) +
+    geom_boxplot() +
+    facet_wrap(~ Age, scales = "free") +
+    scale_fill_manual(values = cbbPalette) +
+    scale_y_continuous(labels =  scales::label_percent()) +
+    theme(legend.position = "none") +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Cost Income Ratio per Census Tract, segmenting by Tenure and Age")})
+```
+
+<br>
+
+The usual dynamic table ensues, for specific investigations.
+
+```{r}
+#to choose the county
+selectInput("county",
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))),
+            selected = "Alachua County")
+renderDT({data_1_FL_getstarted %>%
+#we select the columns of interest
+    select(geoid, county, contains("housecost") & contains("est"), contains("inc") & contains("est") & contains("age")) %>%
+#we pick the county of choice
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x)),
+#we make the tenure columns more readable
+           Owner = housecost_owner_est,
+           Renter = housecost_rent_est) %>%
+#we transform the data into long format, for easier plotting
+    pivot_longer(cols = c("Owner", "Renter"), names_to = "Tenure", values_to = "Cost") %>%
+    pivot_longer(cols = contains("inc"), names_to = "Age", values_to = "Income") %>%
+#we make the Age column more readable
+    mutate(Age = str_sub(Age, start = 9, end = -5),
+           Age = str_replace_all(Age, "_", " "),
+           Age = str_to_title(Age)) %>%
+#we create the cost income ratio variable
+    mutate(Cost = Cost * 12,
+           cost_income_ratio = round(Cost / Income * 100, 2)) %>%
+#we select and change names of the variables of interests 
+    select(-c(2, 3, 4, 5), "Census Tract" = geoid, "Cost Income Ratio %" = cost_income_ratio) %>%
+#we move Age after Tenure
+    relocate(Age, .after = Tenure) %>%
+#we transform the columns into factors, to easily select between their values in the table
+    mutate(across(where(is.character), ~ factor(.x)),
+           `Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table 
+    datatable(filter = "top",
+              rownames = FALSE,
+              extensions = "Buttons",
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```

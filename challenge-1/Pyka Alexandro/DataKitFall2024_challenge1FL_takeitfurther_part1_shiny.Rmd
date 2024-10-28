@@ -1,0 +1,446 @@
+---
+title: ""
+output: 
+  html_document:
+    df_print: paged
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    toc_depth: 3
+runtime: shiny
+---
+
+# - Introduction
+
+Always in the context of [DataKind's Fall2024 DataKit Challenge #1](https://github.com/datakind/datakit-housing-fall-2024/discussions/1) and moving forward from the [get started](https://github.com/PykaAlexandro/DataKitFall2024/blob/main/DataKitFall2024_challenge1FL_getstarted_shiny.Rmd) analysis, we will here proceed with the take it further part, investigating the renting availability and its impact on the income for a county of choice, with the reasoning that renting it's a faster solution in case of displacements.
+
+```{r, message = FALSE}
+#we load the libraries
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(tidyr)
+library(stringr)
+library(shiny)
+#we load the data frame
+data_1_FL_takeitfurther_part1 <- read_csv("data_1_FL_takeitfurther_part1.csv")
+```
+
+# - Assessment of the overall housing stock
+
+We start by enumerating the availability per census tract, as in number of housing units (defined as ["anything from a house to an apartment or even a boat if a person is currently living there"](https://censusreporter.org/topics/housing/)).
+
+NOTE: selecting a different County will change all the graphs and tables in the document to match that selection.
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we build the graph, ordering by the Housing Units count  
+    ggplot(aes(reorder(`Census Tract`, desc(`Housing Units Count`)), `Housing Units Count`)) +
+    geom_col(fill = "#0072B2") + 
+    theme(axis.text.x = element_blank(),
+          axis.ticks = element_blank()) +
+    labs(x = NULL,
+         y = NULL,
+         title = "Number of Housing Units per Census Tract")})
+```
+
+The graph is ordered by the census tracts with more housing units, to better convey the county average.
+
+<br>
+
+We provide a dynamic table (downloadable as an excel file or a pdf) as well to satisfy the need to pinpoint specific instances:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we select the variables of interest
+    select(1, 3) %>%
+#we display the counties with most housing units on top
+    arrange(desc(`Housing Units Count`)) %>%
+#we transform the Census Tract variable to factor, to more easily select its values
+    mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct a dynamic table
+    datatable(filter = "top", 
+              rownames = FALSE,
+              extensions = 'Buttons',
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+Out of the overall housing units present, not all are occupied, as we show in the following graph:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+
+renderPlot({
+#we define a colorblind friendly palette
+  cbbPalette <- c("#0072B2", "#D55E00")
+  data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we transform the data into long format, for easier plotting 
+    pivot_longer(cols = c(4, 7), names_to = "Status", values_to = "Number of Housing Units") %>%
+#we build the graph, ordering by the number of Housing Units
+    ggplot(aes(reorder(`Census Tract`, desc(`Number of Housing Units`)), `Number of Housing Units`, fill = Status)) +
+    geom_col() +
+    scale_fill_manual(values = cbbPalette) +
+    theme(legend.position = "bottom",
+          legend.title = element_blank(),
+          axis.text.x = element_blank(),
+          axis.ticks = element_blank()) +
+    labs(x = NULL,
+         y = NULL,
+         title = "Number of Housing Units per Census Tract, differentiating by Occupancy")})
+```
+
+<br>
+
+To individuate specific instances, we can use the following dynamic table:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+  filter(County == input$county) %>%
+#we calculate the percentage of vacant housing units and we transform census tract into a factor to more easily select its values
+  mutate("Vacant %" = round(Vacant / `Housing Units Count` * 100, 2),
+         `Census Tract` = factor(`Census Tract`)) %>%
+#we select and reorder the variables of interest
+  select(1, 3, 4, 7, `Vacant %`) %>%
+#we construct a dynamic table
+  datatable(filter = "top", 
+              rownames = FALSE,
+              extensions = 'Buttons',
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+About the occupied housing units, we can differentiate between owned vs rented,
+
+```{r, warning = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderPlot({
+#we define a colorblind friendly palette
+  cbbPalette <- c("#0072B2", "#56B4E9")
+  data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we calculate the percentage of occupied housing units that are rented
+    mutate(RentProp = `Renter occupied` / Occupied) %>%
+#we transform the data into long format, for easier plotting 
+    pivot_longer(cols = 5:6, names_to = "Status", values_to = "Number of Housing Units") %>%
+#we build the graph, ordering by RentProp
+    ggplot(aes(reorder(`Census Tract`, desc(RentProp)), `Number of Housing Units`, fill = Status)) +
+    geom_col(position = position_fill()) +
+    scale_fill_manual(values = cbbPalette) +
+    theme(legend.position = "bottom",
+          legend.title = element_blank(),
+          axis.text.x = element_blank(),
+          axis.ticks = element_blank()) +
+    labs(x = NULL,
+         y = NULL,
+         title = "Proportions of Owner and Renter Occupied Housing Units per Census Tract")})
+```
+
+calculate the overall ownership in percentage,
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderTable({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we calculate the total figures
+    summarise("Total Occupied" = sum(Occupied),
+              "Total Owner" = sum(`Owner occupied`),
+              "Total Renter" = sum(`Renter occupied`)) %>%
+#we calculate the percentage of owners
+    mutate(`Owner %` = round(`Total Owner` / `Total Occupied` * 100, 2))})
+```
+
+<br>
+
+And see what census tracts, if any, have only renters:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we calculate the percentage of rented housing units occupied and we transform census tract into a factor to more easily select its values
+    mutate(`Renter %` = round(`Renter occupied` / Occupied * 100, 2),
+           `Census Tract` = factor(`Census Tract`)) %>%
+#we select the variables of interest
+    select(1, 4, 5, 6, `Renter %`) %>%
+#we display the census tracts with all housing unites occupied by renters on top
+    arrange(desc(`Renter %`)) %>%
+#we construct the dynamic table
+    datatable(filter = "top", 
+              rownames = FALSE,
+              extensions = 'Buttons',
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+# - Renting availability and impact on the income.
+
+Among the vacant housing units, here we differentiate between the ones that are available to rent and the ones that aren't, both with a graph:
+
+```{r, warning = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderPlot({
+#we define a colorblind friendly palette
+  cbbPalette <- c("#F0E442", "#D55E00")  
+  data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we calculate the percentage of vacant housing units that are available to rent and we collapse the other instances
+    mutate(ToRentProp = `For rent` / Vacant,
+           Other = rowSums(pick(9:14))) %>%
+#we transform the data into long format, for easier plotting
+    pivot_longer(cols = c(8, last_col()), names_to = "Status", values_to = "Number of Housing Units") %>%
+#we build the plot, ordering by ToRentProp
+    ggplot(aes(reorder(`Census Tract`, desc(ToRentProp)), `Number of Housing Units`, fill = Status)) +
+    geom_col(position = position_fill()) +
+    scale_fill_manual(values = cbbPalette) +
+    theme(legend.position = "bottom",
+          legend.title = element_blank(),
+          axis.text.x = element_blank(),
+          axis.ticks = element_blank()) +
+    labs(x = NULL,
+         y = NULL,
+         title = "Vacancy Status per Census Tract")})
+```
+
+<br>
+
+And with a table:
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we calculate the percentage of vacant housing units that are available to rent and we transform census tract into a factor to more easily select its values
+    mutate(`For Rent %` = round(`For rent` / Vacant * 100, 2),
+           `Census Tract` = factor(`Census Tract`)) %>%
+#we select the variables of interest
+    select(1, 7:14, last_col()) %>%
+#we construct the dynamic table
+    datatable(filter = "top", 
+              rownames = FALSE,
+              extensions = 'Buttons',
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf')))})
+```
+
+<br>
+
+Lastly, we can study how the rents respond to the economic possibilities of the population, starting with the contract rents, defined as [monthly rent agreed to without adjustments for utilities or other payments](https://censusreporter.org/topics/housing/).
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we transform the data into long format, for easier plotting
+    pivot_longer(cols = contains("contract"), names_to = "Rent", values_to = "Number") %>%
+#we transform the Rent variable for easier visualization
+    mutate(Rent = str_sub(Rent, 1, -11),
+           Rent = factor(Rent, levels = unique(Rent), ordered = TRUE)) %>%
+#we build the graph  
+    ggplot(aes(Rent, Number)) +
+    geom_col(fill = "#0072B2") +
+    coord_flip() +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Contract Rent")})
+```
+
+<br>
+
+As a quick comparison, we present the distribution of the average monthly income per household (calculated from the yearly median one).
+
+```{r, warning = FALSE, message = FALSE}
+#we load the income data frame
+data_1_FL_getstarted <- read_csv("data_1_FL_getstarted.csv")
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_getstarted$county))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_getstarted %>%
+#we pick the county of choice
+    filter(county == input$county) %>%
+#we change the negative values (present with missing data) to NAs  
+    mutate(across(everything(), ~ case_when(.x >=0 ~ .x))) %>%
+#we build the graph  
+    ggplot(aes(med_hh_inc_est / 12)) +
+    geom_density(fill = "#0072B2") +
+    scale_x_continuous(labels = scales::label_dollar()) +
+    scale_y_continuous(labels = NULL, breaks = NULL) +
+    labs(x = NULL,
+         y = NULL,
+         title ="Distribution of Average Monthly Income per Census Tract")})
+```
+
+<br>
+
+As usual, we provide as well a dynamic table to complete the graph.
+
+```{r}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we select the variables of interest
+    select(1, contains("contract")) %>%
+#we transform the Census Tract variable into a factor to easily select between its values
+    mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+    datatable(filter = "top",
+              rownames = FALSE,
+              extensions = c("Buttons", "FixedColumns"),
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf'),
+                             scrollX = TRUE, 
+                             fixedColumns = list(leftColumns = 1)))})
+```
+
+We can perform the same analysis for gross rent, defined as contract rent plus the average cost of the utilities (electricity, gas, and water and sewer) and fuel (oil, coal, kerosene, wood, etc), noting an obvious shift to more expensive rents.
+
+```{r, message = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we transform the data into long format, for easier plotting   
+    pivot_longer(cols = contains("gross"), names_to = "Rent", values_to = "Number") %>%
+#we transform the Rent variable for an easier visualization
+    mutate(Rent = str_sub(Rent, 1, -8),
+           Rent = factor(Rent, levels = unique(Rent), ordered = TRUE)) %>%
+#we build the graph    
+    ggplot(aes(Rent, Number)) +
+    geom_col(fill = "#0072B2") +
+    coord_flip() +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Gross Rent")})
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we select the variable of interest
+    select(1, contains("gross")) %>%
+#we transform the Census Tract variable into a factor to easily select between its values
+    mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+    datatable(filter = "top",
+              rownames = FALSE,
+              extensions = c("Buttons", "FixedColumns"),
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf'),
+                             scrollX = TRUE, 
+                             fixedColumns = list(leftColumns = 1)))})
+```
+
+<br>
+
+Census provides us also with the percentage of income spent on gross rent.
+
+```{r, message = FALSE}
+#to choose the county
+selectInput("county", 
+            label = "County",
+            choices = factor(sort(unique(data_1_FL_takeitfurther_part1$County))), 
+            selected = "Alachua County")
+renderPlot({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we transform the data into long format, for easier plotting  
+    pivot_longer(cols = 65:last_col(), names_to = "RentPerc", values_to = "Number") %>%
+#we transform the Census Tract variable into a factor to better visualize it on the graph
+    mutate(Rent = factor(RentPerc, levels = unique(RentPerc), ordered = TRUE)) %>%
+#we build the graph  
+    ggplot(aes(RentPerc, Number)) +
+    geom_col(fill = "#0072B2") +
+    coord_flip() +
+    labs(x = NULL,
+         y = NULL,
+         title = "Distribution of Percentage of Income spent on Gross Rent")})
+renderDT({data_1_FL_takeitfurther_part1 %>%
+#we pick the county of choice
+    filter(County == input$county) %>%
+#we select the variables of interest
+    select(1, 65:last_col()) %>%
+#we transform the Census Tract variable into a factor to easily select between its values
+    mutate(`Census Tract` = factor(`Census Tract`)) %>%
+#we construct the dynamic table
+    datatable(filter = "top",
+              rownames = FALSE,
+              extensions = c("Buttons", "FixedColumns"),
+              options = list(dom = 'tpB',
+                             buttons = c('excel', 'pdf'),
+                             scrollX = TRUE, 
+                             fixedColumns = list(leftColumns = 1)))})
+```
