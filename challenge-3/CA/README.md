@@ -1,1 +1,1 @@
-Contains python file and images folder 
+Contains python file and images 
