@@ -1,0 +1,425 @@
+---
+title: ""
+output: 
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    toc_depth: 3
+---
+
+```{r, message = FALSE}
+#loading the packages
+library(readr)
+library(dplyr)
+library(stringr)
+```
+
+In this document I will describe the data frames I used in my analyses, with a particular attention to where I found them.
+
+# - get started analysis
+
+```{r, message = FALSE}
+#loading the data frame
+data_1_FL_getstarted <- read_csv("data_1_FL_getstarted.csv")
+```
+
+The "data_1-FL_getstarted.csv" was retrieved from the [EODatascape](https://eodatascape.datakind.org/), with the following specifications:
+
+State:   
+Florida
+
+County:   
+All
+
+Boundary Type:   
+Census Tract
+
+Fields:   
+From > Economic Profile Data   
+  > ACS - Median Household Income last 12 months (in 2022 Inflation-Adjusted Dollars)   
+    Estimate    
+      > By Race of Householder (the 9 estimates)   
+      > By Age of Householder (the 4 estimates)   
+  > ACS - Median Earnings (Dollars) in the Past 12 Months (in 2022 Inflation-Adjusted Dollars)   
+    Estimate   
+      > By Sex (the 2 estimates)   
+for a total of 17 variables   
+
+From > Housing Data   
+  > ACS - Median Monthly Housing Cost (Occupied Housing Units)   
+    Estimate   
+      > By ownership status (the 2 estimates)   
+for a total of 3 variables   
+
+This yields a data frame with these columns:
+  
+```{r}
+data_1_FL_getstarted %>%
+  colnames(.)
+```
+that has `r nrow(data_1_FL_getstarted)` rows, for a total of `r length(unique(data_1_FL_getstarted$geoid))` census tracts, with this distribution of census tracts per county:
+
+```{r}
+data_1_FL_getstarted %>%
+  count(county)
+```
+
+There are many negative values in this data frame,
+
+```{r}
+data_1_FL_getstarted %>%
+#preserving the rows with negative values
+  filter(if_any(everything(), ~ .x < 0)) %>%
+#preserving the columns with negative values
+  select(where(~ any(.x < 0)))
+```
+
+and in fact they represent [jam values](https://www2.census.gov/programs-surveys/acs/tech_docs/jam_values/2022_Jam_Values.xlsx), i.e. placeholders for where an actual value is not present (for example if a certain ethnicity does not reside in a specific census tract).
+
+There are no missing values,
+
+```{r}
+#obtaining the number of columns with missing values
+rowSums(data_1_FL_getstarted %>%
+          summarise(across(everything(), ~ any(is.na(.x)))))
+```
+
+or duplicated rows.
+
+```{r}
+#checking if the number of distinct and original rows are the same
+nrow(data_1_FL_getstarted %>%
+       distinct()) == nrow(data_1_FL_getstarted)
+```
+
+# - take it further analyses
+
+## - part 1
+
+For part 1 I pulled the following tables from the [Census Reporter website](https://censusreporter.org/topics/housing/):
+
+- B25001, Housing Units Count
+- B25003, Tenure
+- B25002, Occupancy Status
+- B25004, Vacancy Status
+- B25056, Contract Rent
+- B25063, Gross Rent
+- B25070, Gross Rent as a Percentage of Household Income
+
+For all of them the place or summary level chosen was Florida and the data was divided into census tracts.
+When given the option, the data was downloaded as totals (and not percentages).
+
+```{r, message = FALSE}
+#loading the data frames
+data_1_FL_housing_units_count <- read_csv("data_1_FL_housing_units_count.csv") #(B25001)
+data_1_FL_tenure <- read_csv("data_1_FL_tenure.csv") #(B25003)
+data_1_FL_occupancy <- read_csv("data_1_FL_occupancy.csv") #(B25002)
+data_1_FL_vacancy_status <- read_csv("data_1_FL_vacancy_status.csv") #(B25004)
+data_1_FL_contract_rent <- read_csv("data_1_FL_contract_rent.csv") #(B25056)
+data_1_FL_gross_rent <- read_csv("data_1_FL_gross_rent.csv") #(B25063)
+data_1_FL_gross_rent_perc <- read_csv("data_1_FL_gross_rent_perc.csv") #(B25070)
+```
+
+I then merged them all together with the following procedure:
+
+```{r}
+#we save the merged data into data_1_FL_takeitfurther_part1
+(data_1_FL_takeitfurther_part1 <- data_1_FL_housing_units_count %>%
+#we remove the first line, the total for Florida
+   slice(-1) %>%
+#we clean the geoid column and create the County one
+   mutate(geoid = str_sub(geoid, 8),
+          County = str_extract(name,"(?<=,)[^,]+(?=,)"),
+          County = str_trim(str_c(County, "County", sep = " "))) %>%
+#we change name to geoid, select County and change name for the Housing Units count 
+   select("Census Tract" = geoid,
+          last_col(),
+          "Housing Units Count" = B25001001) %>%
+#we merge vertically through rows' indexes
+   bind_cols(data_1_FL_occupancy %>%
+#we remove the first line, the total for Florida               
+               slice(-1) %>%
+#we select and change names for the Occupied and Vacant counts
+               select(Occupied = 5,
+                      Vacant = 7)) %>%
+#we merge vertically through rows' indexes  
+   bind_cols(data_1_FL_tenure %>%
+#we remove the first line, the total for Florida               
+               slice(-1) %>%
+#we select and change names for the Owner and Renter occupied counts
+               select("Owner occupied" = 5,
+                      "Renter occupied" = 7)) %>%
+#we merge vertically through rows' indexes   
+   bind_cols(data_1_FL_vacancy_status %>%
+#we remove the first line, the total for Florida               
+               slice(-1) %>%
+#we select and change names for the counts of interest
+               select("For rent" = 5,
+                      "Rented, not occupied" = 7,
+                      "For sale only" = 9,
+                      "Sold, not occupied" = 11,
+                      "For seasonal, recreational, or occasional use" = 13,
+                      "For migrant workers" = 15,
+                      "Other Vacant" = 17)) %>%
+#we move the Vacant column after Renter Occupied
+   relocate(Vacant, .after = `Renter occupied`) %>%
+#we merge vertically through rows' indexes   
+   bind_cols(data_1_FL_contract_rent %>%
+#we remove the first line, the total for Florida               
+               slice(-1) %>%
+#we select and change names for the counts of interest
+               select("$100 or less (contract)" = 7,
+                      "$100 to $149 (contract)" = 9,
+                      "$150 to $199 (contract)" = 11,
+                      "$200 to $249 (contract)" = 13,
+                      "$250 to $299 (contract)" = 15,
+                      "$300 to $349 (contract)" = 17,
+                      "$350 to $399 (contract)" = 19,
+                      "$400 to $449 (contract)" = 21,
+                      "$450 to $499 (contract)" = 23,
+                      "$500 to $549 (contract)" = 25,
+                      "$550 to $599 (contract)" = 27,
+                      "$600 to $649 (contract)" = 29,
+                      "$650 to $699 (contract)" = 31,
+                      "$700 to $749 (contract)" = 33,
+                      "$750 to $799 (contract)" = 35,
+                      "$800 to $899 (contract)" = 37,
+                      "$900 to $999 (contract)" = 39,
+                      "$1,000 to $1,249 (contract)" = 41,
+                      "$1,250 to $1,499 (contract)" = 43,
+                      "$1,500 to $1,999 (contract)" = 45,
+                      "$2,000 to $2,499 (contract)" = 47,
+                      "$2,500 to $2,999 (contract)" = 49,
+                      "$3,000 to $3,499 (contract)" = 51,
+                      "$3,500 or more (contract)" = 53,
+                      "No cash rent (contract)" = 55)) %>%
+#we merge vertically through rows' indexes   
+   bind_cols(data_1_FL_gross_rent %>%
+#we remove the first line, the total for Florida               
+               slice(-1) %>%
+#we select and change names for the counts of interest
+               select("$100 or less (gross)" = 7,
+                      "$100 to $149 (gross)" = 9,
+                      "$150 to $199 (gross)" = 11,
+                      "$200 to $249 (gross)" = 13,
+                      "$250 to $299 (gross)" = 15,
+                      "$300 to $349 (gross)" = 17,
+                      "$350 to $399 (gross)" = 19,
+                      "$400 to $449 (gross)" = 21,
+                      "$450 to $499 (gross)" = 23,
+                      "$500 to $549 (gross)" = 25,
+                      "$550 to $599 (gross)" = 27,
+                      "$600 to $649 (gross)" = 29,
+                      "$650 to $699 (gross)" = 31,
+                      "$700 to $749 (gross)" = 33,
+                      "$750 to $799 (gross)" = 35,
+                      "$800 to $899 (gross)" = 37,
+                      "$900 to $999 (gross)" = 39,
+                      "$1,000 to $1,249 (gross)" = 41,
+                      "$1,250 to $1,499 (gross)" = 43,
+                      "$1,500 to $1,999 (gross)" = 45,
+                      "$2,000 to $2,499 (gross)" = 47,
+                      "$2,500 to $2,999 (gross)" = 49,
+                      "$3,000 to $3,499 (gross)" = 51,
+                      "$3,500 or more (gross)" = 53,
+                      "No cash gross rent (gross)" = 55)) %>%
+#we merge vertically through rows' indexes   
+   bind_cols(data_1_FL_gross_rent_perc %>%
+#we remove the first line, the total for Florida               
+               slice(-1) %>%
+#we select and change names for the counts of interest
+               select("10.0 percent or less" = 5,
+                      "10.0 to 14.9 percent" = 7,
+                      "15.0 to 19.9 percent" = 9,
+                      "20.0 to 24.9 percent" = 11,
+                      "25.0 to 29.9 percent" = 13,
+                      "30.0 to 34.9 percent" = 15,
+                      "35.0 to 39.9 percent" = 17,
+                      "40.0 to 49.9 percent" = 19,
+                      "50.0 percent or more" = 21,
+                      "Not computed" = 23)))
+```
+
+We export the data frame as "data_1_FL_takeitfurther_part1.csv"
+
+```{r}
+write_csv(data_1_FL_takeitfurther_part1, "data_1_FL_takeitfurther_part1.csv")
+```
+
+The data frame has these columns,
+  
+```{r}
+data_1_FL_takeitfurther_part1 %>%
+  colnames(.)
+```
+
+and `r nrow(data_1_FL_takeitfurther_part1)` rows, for a total of `r nrow(unique(data_1_FL_takeitfurther_part1[, 1]))` census tracts, with this distribution of census tracts per county:
+
+```{r}
+data_1_FL_takeitfurther_part1 %>%
+  count(County)
+```
+
+There are no negative
+
+```{r}
+data_1_FL_takeitfurther_part1 %>%
+#preserving the rows with negative values
+  filter(if_any(everything(), ~ .x < 0)) %>%
+#preserving the columns with negative values
+  select(where(~ any(.x < 0)))
+```
+
+or missing values,
+
+```{r}
+#obtaining the number of columns with missing values
+rowSums(data_1_FL_takeitfurther_part1 %>%
+  summarise(across(everything(), ~ any(is.na(.x)))))
+```
+
+nor duplicated rows.
+
+```{r}
+#checking if the number of distinct and original rows are the same
+nrow(data_1_FL_takeitfurther_part1 %>%
+       distinct()) == nrow(data_1_FL_takeitfurther_part1)
+```
+
+## - part 2
+
+The procedure for part 2 was the same, just the tables were different:
+
+- B25009, Tenure by Household Size
+- B25042, Tenure by Bedrooms
+- B25068, Bedrooms by Gross Rent
+
+```{r, message = FALSE}
+data_1_FL_tenure_by_household_size <- read_csv("data_1_FL_tenure_by_household_size.csv") #(B25009)
+data_1_FL_tenure_by_bedrooms <- read_csv("data_1_FL_tenure_by_bedrooms.csv") #(B25042)
+data_1_FL_bedrooms_by_gross_rent <- read_csv("data_1_FL_bedrooms_by_gross_rent.csv") #(B25068)
+```
+
+```{r}
+#we save the merged data into data_1_FL_takeitfurther_part2
+(data_1_FL_takeitfurther_part2 <- data_1_FL_tenure_by_household_size  %>%
+#we remove the first line, the total for Florida
+   slice(-1) %>%
+#we clean the geoid column and create the County one
+   mutate(geoid = str_sub(geoid, 8),
+          County = str_extract(name,"(?<=,)[^,]+(?=,)"),
+          County = str_trim(str_c(County, "County", sep = " "))) %>%
+#we change name to geoid, select County and change names for household sizes counts 
+   select("Census Tract" = geoid,
+          last_col(),
+          "1-person (owner)" = 7,
+          "2-person (owner)" = 9,
+          "3-person (owner)" = 11,
+          "4-person (owner)" = 13,
+          "5-person (owner)" = 15,
+          "6-person (owner)" = 17,
+          "7-or-more person (owner)" = 19,
+          "1-person (renter)" = 23,
+          "2-person (renter)" = 25,
+          "3-person (renter)" = 27,
+          "4-person (renter)" = 29,
+          "5-person (renter)" = 31,
+          "6-person (renter)" = 33,
+          "7-or-more person (renter)" = 35) %>%
+#we merge vertically through rows' indexes  
+  bind_cols(data_1_FL_tenure_by_bedrooms  %>%
+#we remove the first line, the total for Florida
+              slice(-1) %>%
+#we change names to the bedrooms counts 
+              select("No bedroom (owner)" = 7,
+                     "1 bedroom (owner)" = 9,
+                     "2 bedrooms (owner)" = 11,
+                     "3 bedrooms (owner)" = 13,
+                     "4 bedrooms (owner)" = 15,
+                     "5 or more bedrooms (owner)" = 17,
+                     "No bedroom (renter)" = 21,
+                     "1 bedroom (renter)" = 23,
+                     "2 bedrooms (renter)" = 25,
+                     "3 bedrooms (renter)" = 27,
+                     "4 bedrooms (renter)" = 29,
+                     "5 or more bedrooms (renter)" = 31)) %>%
+#we merge vertically through rows' indexes  
+  bind_cols(data_1_FL_bedrooms_by_gross_rent %>%
+#we remove the first line, the total for Florida
+              slice(-1) %>%
+#we change names to the rent by bedrooms counts 
+              select("Less than $300 (No bedroom)" = 9,
+                     "$300 to $499 (No bedroom)" = 11,
+                     "$500 to $749 (No bedroom)" = 13,
+                     "$750 to $999 (No bedroom)" = 15,
+                     "$1,000 to $1,499 (No bedroom)" = 17,
+                     "$1,500 or more (No bedroom)" = 19,
+                     "No cash rent (No bedroom)" = 21,
+                     "Less than $300 (1 bedroom)" = 27,
+                     "$300 to $499 (1 bedroom)" = 29,
+                     "$500 to $749 (1 bedroom)" = 31,
+                     "$750 to $999 (1 bedroom)" = 33,
+                     "$1,000 to $1,499 (1 bedroom)" = 35,
+                     "$1,500 or more (1 bedroom)" = 37,
+                     "No cash rent (1 bedroom)" = 39,
+                     "Less than $300 (2 bedrooms)" = 45,
+                     "$300 to $499 (2 bedrooms)" = 47,
+                     "$500 to $749 (2 bedrooms)" = 49,
+                     "$750 to $999 (2 bedrooms)" = 51,
+                     "$1,000 to $1,499 (2 bedrooms)" = 53,
+                     "$1,500 or more (2 bedrooms)" = 55,
+                     "No cash rent (2 bedrooms)" = 57,
+                     "Less than $300 (3 or more bedrooms)" = 63,
+                     "$300 to $499 (3 or more bedrooms)" = 65,
+                     "$500 to $749 (3 or more bedrooms)" = 67,
+                     "$750 to $999 (3 or more bedrooms)" = 69,
+                     "$1,000 to $1,499 (3 or more bedrooms)" = 71,
+                     "$1,500 or more (3 or more bedrooms)" = 73,
+                     "No cash rent (3 or more bedrooms)" = 75)))
+```
+
+```{r}
+write_csv(data_1_FL_takeitfurther_part2, "data_1_FL_takeitfurther_part2.csv")
+```
+
+That produces a data frame with these columns,
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+  colnames(.)
+```
+
+with `r nrow(data_1_FL_takeitfurther_part2)` rows, for a total of `r nrow(unique(data_1_FL_takeitfurther_part2[, 1]))` census tracts, with this distribution of census tracts per county:
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+  count(County)
+```
+
+With again no negative
+
+```{r}
+data_1_FL_takeitfurther_part2 %>%
+#preserving the rows with negative values
+  filter(if_any(everything(), ~ .x < 0)) %>%
+#preserving the columns with negative values
+  select(where(~ any(.x < 0)))
+```
+
+or missing values,
+
+```{r}
+#obtaining the number of columns with missing values
+rowSums(data_1_FL_takeitfurther_part2 %>%
+  summarise(across(everything(), ~ any(is.na(.x)))))
+```
+
+nor duplicated rows.
+
+```{r}
+#checking if the number of distinct and original rows are the same
+nrow(data_1_FL_takeitfurther_part2 %>%
+       distinct()) == nrow(data_1_FL_takeitfurther_part2)
+```
