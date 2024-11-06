@@ -13,7 +13,7 @@ It's a Google Colab Jupityer notebook, but there is also a PDF if you just want 
 #### [DataKindChallenge3-PDF.pdf](./DataKindChallenge3-PDF.pdf)
 
 ### [DataKindChallenge3Geo.ipynb](./DataKindChallenge3Geo.ipynb)
-A notebook using GeoPandas and Folium to make an interactive Florida map visualizing some of the challenge 3 data
+A notebook using GeoPandas and Folium to make an interactive Florida map visualizing some of the challenge 3 data. This includes visualizing "underinvested" and "overinvested" census tracts, by looking for tracts with high poverty but low CDFI lending and vice versa
 
 ### [DataKindChallenge3Messy.ipynb](./DataKindChallenge3Messy.ipynb)
 A sprawling notebook that includes lots of the paths not taken along the road to generating the nicer notebooks in here, but which has useful things amidst the mess. In particular, it includes some invesigations into the CDFI TLR dataset that is the source dataset for the CDFI lending data in EODataScape
